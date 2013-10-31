@@ -9,8 +9,7 @@ public class State{
   // --- If it's being accessed in another window
   private boolean brushing;
   private color stateColor;
-  
-  private StateData data;
+
   private int centerX;
   private int centerY;
   private String abb;
@@ -21,7 +20,7 @@ public class State{
   public color gray;
 
   
-  public State(String name, String abb, Poly polygon, int centerX, int centerY, int workers, int alone, int carpooled, int publicTrans, int walked, int other, int home, float travelTime){
+  public State(String name, String abb, Poly polygon, int centerX, int centerY){
     this.name = name;
     this.polygon = polygon;
     
@@ -31,8 +30,7 @@ public class State{
     this.centerX = centerX;
     this.centerY = centerY;
 
-    data = new StateData(name, workers, alone, carpooled, publicTrans, walked, other, home, travelTime);
-    
+ 
     highlight = false;
     brushing = false;
     stateColor = createColor();
@@ -104,25 +102,12 @@ public class State{
     text(abb, centerX, centerY);
   }
   
-  public void dataBox(){
-    //data.drawBox(mouseX,mouseY);
-    data.drawBox(centerX,centerY);
-  } 
-  
-  public StateData getStateData(){
-    return data;
-  }
-  
   public int getCenterX(){
      return centerX;
   }
   
   public int getCenterY(){
      return centerY;
-  }
-  
-  public int getWorkers(){
-     return data.getWorkers();
   }
 
 }

@@ -1,12 +1,8 @@
 import java.awt.Polygon; 
 
 public class Map{
-  
- 
-  
   private ArrayList<State> stateList = new ArrayList<State>(50);
   // not exactly x and y
-  
   XML xml;
   
   public Map(){ 
@@ -21,11 +17,11 @@ public class Map{
     int scaleX = 12;
     int scaleY = -15;
     
-    //make Hawaii
-    makeState(state, stateData, 0, 2260, 750, 13, -13);
+      //make Hawaii
+      makeState(state, stateData, 0, 2260, 750, 13, -13);
     
-    //make Alaska
-     makeState(state, stateData, 1, 700, 850, 4, -6);
+      //make Alaska
+       makeState(state, stateData, 1, 700, 850, 4, -6);
     
     for(int i=2; i<state.length; i++){ //draw Hawaii and Alaska separately
       makeState(state, stateData, i, relX, relY, scaleX, scaleY);
@@ -68,7 +64,7 @@ public class Map{
       float travel = 0.0;
       
        State aState = new State(name, state[i].getString("abb"), 
-          shape, centerX, centerY, workers, alone, carpool, publicTrans, walk, other, home, travel);
+          shape, centerX, centerY);
       
       stateList.add(aState);
   }
