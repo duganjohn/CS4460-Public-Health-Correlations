@@ -9,6 +9,7 @@ public class Map{
   
   XML xml;
   private ArrayList<PImage> snapshots = new ArrayList<PImage>();
+  boolean onButton;
   
   public Map(){ 
     
@@ -128,6 +129,7 @@ public class Map{
   public State mouseMoved(){
     reset();
     State retMe = null;
+    onSaveButton();
     for(State st: stateList){
       if (st.contains(mouseX, mouseY)){
         retMe = st;
@@ -154,9 +156,11 @@ public class Map{
       if (st.contains(mouseX, mouseY)){
         clicked = st;
         retMe = st;
-        snapshots.add(get(0,150,800,400));
         break;
       }
+    }
+    if (onButton) {
+     snapshots.add(get(0,150,800,400)); 
     }
     drawMap();
     
@@ -209,8 +213,28 @@ public class Map{
     }
     
   }
+  
+  public void drawSaveButton(){
+    fill(lightGray);
+    stroke(black);
+    strokeWeight(1);
+    rect(700,heightH-200,100,20);
+    fill(black);
+    text("Save This View", 750, heightH-190);
+  }
 
   public ArrayList<State> getStateList(){
     return stateList;
+  }
+  
+  public void onSaveButton(){
+    
+    if (mouseX >= 700 && mouseX < 800) {
+      if (mouseY >= (heightH-200) && mouseY < (heightH-180)){
+        onButton = true;
+      }
+    } else { 
+    onButton = false;
+  }
   }
 }
