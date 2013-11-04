@@ -40,7 +40,6 @@ public class Draw{
     //map.brush(state);
     //stateWindow.setState(state);
   }
-
   
 }
 

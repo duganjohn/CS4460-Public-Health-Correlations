@@ -8,6 +8,7 @@ public class Map{
   // not exactly x and y
   
   XML xml;
+  private ArrayList<PImage> snapshots = new ArrayList<PImage>();
   
   public Map(){ 
     
@@ -80,7 +81,6 @@ public class Map{
       float medicaid = reader.getFloat(i+1,10);
       float medicare = reader.getFloat(i+1,11);
       float military = reader.getFloat(i+1,12);
-      //println(name + " " + year+ " " + population + " " + healthExp + " " + insCoverage);
        State aState = new State(name, state[i].getString("abb"), 
           shape, centerX, centerY, year, population, medianIncome, healthExp,
           noInsCoverage, insCoverage, employmentBased, directPurchase,
@@ -154,6 +154,7 @@ public class Map{
       if (st.contains(mouseX, mouseY)){
         clicked = st;
         retMe = st;
+        snapshots.add(get(0,150,800,400));
         break;
       }
     }
@@ -180,6 +181,7 @@ public class Map{
       drawStateData(highlighted, mouseX, mouseY);
       //currentHighlight = highlighted;
     }
+    drawSnapshots();
  }
   
   /*
@@ -199,7 +201,15 @@ public class Map{
     text("Population:      " + st.population, x , marginTop +  y + hig * 4 / 10);
   }
   
-  
+  public void drawSnapshots(){
+    int snapshotNum = 0;
+    for (PImage aSnapshot : snapshots){
+        image(aSnapshot, snapshotNum*170, heightH-100, 170, 120);
+        snapshotNum += 1;
+    }
+    
+  }
+
   public ArrayList<State> getStateList(){
     return stateList;
   }
