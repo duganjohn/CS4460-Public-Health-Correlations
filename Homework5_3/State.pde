@@ -4,8 +4,8 @@ public class State{
   private String name;
   private Poly polygon;
   private int year;
-  private int healthExp;
-  private int population;
+  private int population, healthExp;
+  private float medianIncome, noInsCoverage, insCoverage;
   private boolean highlight;
   
   // --- If it's being accessed in another window
@@ -21,6 +21,10 @@ public class State{
   public  color brushingColor= color(0,10,100);
   
   public color gray;
+  
+  private Object[] items;
+  private String[] display;
+  private double[] doubles;
 
   
   public State(String name, String abb, Poly polygon, int centerX, int centerY, int year,
@@ -37,6 +41,10 @@ public class State{
     
     this.healthExp = healthExp;
     this.population = population;
+    float ratio = insCoverage / (insCoverage + noInsCoverage);
+    this.insCoverage = ratio * 100;
+    this.noInsCoverage = 100 - this.insCoverage;
+    this.medianIncome = medianIncome;
     
     gray = color(random(75)+25);
     this.abb = abb;
@@ -47,6 +55,10 @@ public class State{
     data = new StateData(name, year, population, medianIncome, healthExp, noInsCoverage, 
                     insCoverage, employmentBased, directPurchase, government,
                     medicaid, medicare, military);
+   
+    doubles = new double[]{0, this.population, this.healthExp, this.noInsCoverage, this.insCoverage, this.medianIncome};
+    items = new Object[]{this.name, this.population, this.healthExp, this.noInsCoverage, this.insCoverage, this.medianIncome};
+    display = new String[]{this.name, ""+this.population, "$ "+this.healthExp, this.noInsCoverage+" %", this.insCoverage+" %", "$ "+this.medianIncome};
     
     highlight = false;
     brushing = false;

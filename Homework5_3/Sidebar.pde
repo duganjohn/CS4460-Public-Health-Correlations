@@ -40,28 +40,32 @@ public class Sidebar {
       text(typeName[i], x + widthW*.15, y*3 + y*.5*i);
       rect(x, y*2.75 + y*i*.5, widthW*.3, 2);
     }
-    textSize(18);
-    fill(blue);    // Text color
-    if (map.highlighted !=  null) {
-      float leftC = x + widthW*.06;
-      text(map.highlighted.name, leftC, y*2.7);
-      text(map.highlighted.population, leftC, y*3.2);
-      text(map.highlighted.healthExp, leftC, y*3.7);
-      text(map.highlighted.population, leftC, y*4.2);
-      text(map.highlighted.population, leftC, y*4.7);
-      text(map.highlighted.population, leftC, y*5.2);
-    }
     
+    // Highlighted state information
+    textSize(18);
+    fill(blue);
+    textAlign(RIGHT);
+    if (map.highlighted !=  null)
+      for (int i = 0; i < map.highlighted.display.length; i++)
+        if(map.highlighted.display[i] != null) {
+          if (map.clicked != null && map.clicked.doubles != null && map.highlighted.doubles[i] > map.clicked.doubles[i]) textSize(30);
+          text(map.highlighted.display[i], x + widthW*.14, y*2.7 + i*.5*y);
+          textSize(18);
+        }
+
+    
+    // Clicked state Information
+    textSize(18);
     fill(red);
-    if (map.clicked !=  null) {
-      float rightC = x + widthW*.2;
-      text(map.clicked.name, rightC, y*2.7);
-      text(map.clicked.population, rightC, y*3.2);
-      text(map.clicked.healthExp, rightC, y*3.7);
-      text(map.clicked.population, rightC, y*4.2);
-      text(map.clicked.population, rightC, y*4.7);
-      text(map.clicked.population, rightC, y*5.2);
-    }
+    textAlign(LEFT);
+    if (map.clicked !=  null)
+      for (int i = 0; i < map.clicked.display.length; i++)
+        if(map.clicked.display[i] != null) {
+          if (map.highlighted != null && map.highlighted.doubles != null && map.clicked.doubles[i] > map.highlighted.doubles[i]) textSize(30);
+          text(map.clicked.display[i], x + widthW*.16, y*2.7 + i*.5*y);
+          textSize(18);
+        }
+
   }
 }
 
