@@ -64,7 +64,13 @@ public class Map{
       }
       Poly shape = new Poly(x,y,pointCount);
     
-       StateData data = makeStateData(i);     
+       StateData data = makeStateData(i);
+  
+    //hardcode center if D.C.
+     if(i == 8){
+       centerX = 655;
+       centerY = 405;
+     }     
        
        State aState = new State(state[i].getString("name"), state[i].getString("abb"), 
           shape, centerX, centerY, data );
@@ -238,7 +244,9 @@ public class Map{
         highlighted = st;
       }
     } 
+    
     if(highlighted!=null){
+      highlighted.draw();
       drawStateData(highlighted, mouseX, mouseY);
       //currentHighlight = highlighted;
     }

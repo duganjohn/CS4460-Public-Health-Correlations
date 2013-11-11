@@ -17,8 +17,7 @@ public class State{
   
   public  color highlightColor= color(34,203,100);
   public  color brushingColor= color(0,10,100);
-  
-  public color gray;
+
 
 
   
@@ -31,8 +30,6 @@ public class State{
     this.centerX = centerX;
     this.centerY = centerY;
 
-    
-    gray = color(random(75)+25);
     this.abb = abb;
     
     this.centerX = centerX;
@@ -75,12 +72,6 @@ public class State{
   public State draw(){
     State ret = null;
     drawName();
-    if(filterOn==1){
-      fill(gray);
-      noStroke();
-      polygon.draw();
-    }
-    else{
       if (brushing){
         fill(brushingColor);
         strokeWeight(3);
@@ -88,8 +79,8 @@ public class State{
       }
       else if (highlight){
         fill(brushingColor);
-        strokeWeight(4);
-        stroke(black); //work on 
+        strokeWeight(3);
+        stroke(70); //work on 
         ret = this;
       }
       else{
@@ -97,7 +88,6 @@ public class State{
         noStroke();
       }
       
-    }
     
     polygon.draw(); 
     drawName();
