@@ -15,7 +15,7 @@ public class MapMenu{
        .setRange(1999,2012) // values can range from big to small as well
        .setValue(2012)
        .setNumberOfTickMarks(14)
-        .setColorTickMark(0)
+       .setColorTickMark(0)
        .snapToTickMarks(true) 
        .setSliderMode(Slider.FLEXIBLE)
        .setTriggerEvent(Slider.RELEASE) 
@@ -31,6 +31,9 @@ public class MapMenu{
   
   public void mousePressed(){
      if (saveButton.pressed()) {
+       if (snapshots.size() > 5) {
+         javax.swing.JOptionPane.showMessageDialog(null, "You may only save 6 views, please delete one or more views.");
+       }
        snapshots.add(get(0,150,800,400)); 
     }
   }
