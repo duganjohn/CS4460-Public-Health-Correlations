@@ -26,7 +26,8 @@ public class Draw{
     title();
     sidebar.drawSidebar();
     map.drawMap();
-    map.drawSaveButton();    
+
+    mapmenu.draw();    
   }
   
   /* 

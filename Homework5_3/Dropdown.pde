@@ -34,10 +34,7 @@ public class Dropdown {
     ddl.setIndex(n);
   }
     
-   void controlEvent(ControlEvent theEvent) {
-    if (theEvent.isGroup()) {
-        ListBoxItem selectedItem = ddl.getItem((int)theEvent.value());
-        System.out.println(selectedItem.getName());     
-    }
-  }
+//--Control Event Function Moved to Main.
+//--Only works there
+
 }

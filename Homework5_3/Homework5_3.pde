@@ -2,6 +2,7 @@ import java.awt.Polygon;
 import controlP5.*;
 import de.bezier.data.*; //Xlsreader library 
 public Map map;
+public MapMenu mapmenu;
 public Sidebar sidebar;
 
 public static color background;
@@ -11,6 +12,7 @@ public PFont font48, font36, font24, font14;
 public static Draw draw;
 
 public static int filterOn;
+public float years;
 
 private int widthW;
 private int heightH;
@@ -50,7 +52,7 @@ void setup(){
 
   
   // --- Canvas Setup ----
-  heightH = 760;
+  heightH = 820;
   widthW = 1200;
   size(widthW,heightH);
   background = white;
@@ -67,6 +69,7 @@ void setup(){
   int mapWidth = 800;
   map = new Map();
   sidebar = new Sidebar();
+  mapmenu = new MapMenu(0,heightH-190);
 
 }
 
@@ -87,7 +90,7 @@ void mouseMoved(){
   //if (draw.within(10,150,720,800)){
       map.mouseMoved();
   //}
-
+ 
 
 }
 
@@ -100,6 +103,8 @@ void mousePressed(){
   
   // --- Mouse is pressed on Map ----
   map.mousePressed();
+  mapmenu.mousePressed();
+  draw.draw();
 }
 
 
@@ -108,7 +113,42 @@ void redraw(){
 }
 
 void draw(){
+  //this wastes a lot of resources
   draw.draw();
 }
 
+float gradientCheck = 0.0;
+float yearCheck = years;
+
+void controlEvent(ControlEvent theEvent) {
+
+  // check if the Event was triggered from a ControlGroup
+  if(theEvent.isGroup() && theEvent.group().name() == "Variables") {
+    
+    // if Dropdown List is Clicked
+   // if (theEvent.group().name() == "Variables") {
+      
+      //---Only changes map if a different value is selected--//
+    if(theEvent.getGroup().getValue() != gradientCheck){
+        gradientCheck = theEvent.getGroup().getValue();
+        map.setView(gradientCheck);
+      }
+    }
+    else if(theEvent.isController()){
+      if(theEvent.controller().name()=="years"){
+        if(years!=0.0 && years != yearCheck){
+          yearCheck = years;
+         
+          map.changeYear((int)(years - 1999));
+        }
+      }
+    }
+
+    
+    // check if the Event was triggered from a ControlGroup
+    
+   // println("event from group : "+theEvent.getGroup().getValue()+" from "+theEvent.getGroup());
+  
+  
+}
 

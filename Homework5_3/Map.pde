@@ -8,8 +8,6 @@ public class Map{
   // not exactly x and y
   
   XML xml;
-  private ArrayList<PImage> snapshots = new ArrayList<PImage>();
-  boolean onButton;
   
   public Map(){ 
     
@@ -23,9 +21,9 @@ public class Map{
     int scaleX = 12;
     int scaleY = -15;
     
- 
+   int stateLength = 51;
     //Hawaii and Alaska are on a different scale
-    for(int i=0; i<state.length; i++){
+    for(int i=0; i<stateLength; i++){
       if(i==1){
         //make Alaska
         makeState(state, 1, 700, 850, 4, -6);
@@ -38,12 +36,13 @@ public class Map{
         makeState(state, i, relX, relY, scaleX, scaleY);
       }
     }
-
+ 
      
     for (State st: stateList){
       st.draw();
     }  
   }
+ 
   
   /*
   * Called to make a state
@@ -64,31 +63,72 @@ public class Map{
         
       }
       Poly shape = new Poly(x,y,pointCount);
-      String name = reader.getString(i+1,0);
-      int year = reader.getInt(i+1,1);
-      int population = reader.getInt(i+1,2);
-      float medianIncome = reader.getFloat(i+1,3);
-      int healthExp = 0;
-      try {
-        healthExp = reader.getInt(i+1,4);
-      } catch (NullPointerException e) {
-        healthExp = 0;
-      }
-      float noInsCoverage = reader.getFloat(i+1,5);
-      float insCoverage = reader.getFloat(i+1,6);
-      float employmentBased = reader.getFloat(i+1,7);
-      float directPurchase = reader.getFloat(i+1,8);
-      float government = reader.getFloat(i+1,9);
-      float medicaid = reader.getFloat(i+1,10);
-      float medicare = reader.getFloat(i+1,11);
-      float military = reader.getFloat(i+1,12);
-       State aState = new State(name, state[i].getString("abb"), 
-          shape, centerX, centerY, year, population, medianIncome, healthExp,
-          noInsCoverage, insCoverage, employmentBased, directPurchase,
-          government, medicaid, medicare, military);
+    
+       StateData data = makeStateData(i);     
+       
+       State aState = new State(state[i].getString("name"), state[i].getString("abb"), 
+          shape, centerX, centerY, data );
       
       stateList.add(aState);
   }
+  
+  /*
+  * Overloading
+  * defaults to 13 b/c 2012-1999
+  */
+  public StateData makeStateData(int i){
+    return makeStateData(i, 13);
+  }
+  
+  /*
+  *Created to reuse this reader 
+  @param i stateIndex
+  *@param yearIndex
+  *@return stateData
+  */
+  public StateData makeStateData(int i, int yearIndex){
+      
+      //51 because of D.C.
+       i = i+yearIndex*51 +1;
+     
+     
+      String name = reader.getString(i,0);
+   
+      int year = reader.getInt(i,1);
+      int population = reader.getInt(i,2);
+      float medianIncome = reader.getFloat(i,3);
+      int healthExp = 0;
+      try {
+        healthExp = reader.getInt(i,4);
+      } catch (Exception e) {
+        healthExp = 0;
+      }
+      
+      
+      float noInsCoverage = reader.getFloat(i,5);
+      float insCoverage = reader.getFloat(i,6);
+      float employmentBased = reader.getFloat(i,7);
+      float directPurchase = reader.getFloat(i,8);
+      float government = reader.getFloat(i,9);
+      float medicaid = reader.getFloat(i,10);
+      float medicare = reader.getFloat(i,11);
+      float military = reader.getFloat(i,12);
+      
+      
+     
+      StateData data = new StateData(name, population, medianIncome, healthExp,
+          noInsCoverage, insCoverage, employmentBased, directPurchase,
+          government, medicaid, medicare, military);
+      return data;
+  }
+  
+  public void changeYear(int yearIndex){
+    for(int i = 0; i< stateList.size(); i++){
+      stateList.get(i).data = null;
+      stateList.get(i).setStateData(makeStateData(i, yearIndex));
+    }
+  }
+  
   
   /*
   * Deals with brushing of state. Will need to be implemented later
@@ -105,7 +145,27 @@ public class Map{
   }
   
   // --- What Parameter is being looked at ----
-  public void setView(){
+  //@param gradient The index of variable to change color to
+  // 0 = None
+  // 1 = Population
+  public void setView(float gradient){
+    for(State st: stateList){
+      if (gradient==0){
+        //creates random color
+        st.createColor();
+      }
+      else{
+         //go through every state and find the min and max value;
+         //give a hue
+         //change color hue for all states
+        
+           st.setColor(0,0,0); //setColor
+        }
+    
+    }
+    
+
+   
   }
   
   /*
@@ -129,7 +189,7 @@ public class Map{
   public State mouseMoved(){
     reset();
     State retMe = null;
-    onSaveButton();
+   
     for(State st: stateList){
       if (st.contains(mouseX, mouseY)){
         retMe = st;
@@ -159,9 +219,6 @@ public class Map{
         break;
       }
     }
-    if (onButton) {
-     snapshots.add(get(0,150,800,400)); 
-    }
     drawMap();
     
     return retMe;
@@ -185,7 +242,7 @@ public class Map{
       drawStateData(highlighted, mouseX, mouseY);
       //currentHighlight = highlighted;
     }
-    drawSnapshots();
+    
  }
   
   /*
@@ -195,46 +252,19 @@ public class Map{
   public void drawStateData(State st, int x, int y) {
     int wid = 180, hig = 100;
     int marginTop = 20;
-    fill(lightGray);
+    fill(lightGray,80);
     noStroke();
     rect(x-wid/2,y + marginTop ,wid,hig);
      fill(black);
     textAlign(CENTER, CENTER);
     textSize(14);
     text(st.name, x , marginTop + y + hig *2 / 10);
-    text("Population:      " + st.population, x , marginTop +  y + hig * 4 / 10);
+   // text("Population:      " + st.data.population, x , marginTop +  y + hig * 4 / 10);
   }
   
-  public void drawSnapshots(){
-    int snapshotNum = 0;
-    for (PImage aSnapshot : snapshots){
-        image(aSnapshot, snapshotNum*170, heightH-100, 170, 120);
-        snapshotNum += 1;
-    }
-    
-  }
   
-  public void drawSaveButton(){
-    fill(lightGray);
-    stroke(black);
-    strokeWeight(1);
-    rect(700,heightH-200,100,20);
-    fill(black);
-    text("Save This View", 750, heightH-190);
-  }
-
   public ArrayList<State> getStateList(){
     return stateList;
   }
-  
-  public void onSaveButton(){
-    
-    if (mouseX >= 700 && mouseX < 800) {
-      if (mouseY >= (heightH-200) && mouseY < (heightH-180)){
-        onButton = true;
-      }
-    } else { 
-    onButton = false;
-  }
-  }
+
 }
