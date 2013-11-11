@@ -24,6 +24,7 @@ public class MapMenu{
   }
   
   public void draw(){
+    //rect(40,640,500, 40);
     saveButton.draw();
     drawSnapshots();
     

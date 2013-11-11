@@ -1,3 +1,4 @@
+import java.text.DecimalFormat;
 
 public class StateData{
   // --- Called during app to populate all states. ----
@@ -58,6 +59,8 @@ public class StateData{
   }
  
  public void updateArray(){
+   
+    //String output = ""+myFormatter.format(map.clicked.data.display[i]);
     this.doubles = new double[]{0, this.population, this.healthExp, this.noInsCoverage, this.insCoverage, this.medianIncome};
     this.items = new Object[]{this.name, this.population, this.healthExp, this.noInsCoverage, this.insCoverage, this.medianIncome};
     this.display = new String[]{this.name, ""+this.population, "$ "+this.healthExp, this.noInsCoverage+" %", this.insCoverage+" %", "$ "+this.medianIncome};

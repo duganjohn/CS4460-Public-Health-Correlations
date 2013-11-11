@@ -1,4 +1,5 @@
 
+
 public class Sidebar {
   float x = widthW*.7;
   float y = heightH*.15;
@@ -64,11 +65,13 @@ public class Sidebar {
     textSize(18);
     fill(red);
     textAlign(LEFT);
+
+
     if (map.clicked !=  null)
       for (int i = 0; i < map.clicked.data.display.length; i++)
         if(map.clicked.data.display[i] != null) {
           if (map.highlighted != null && map.highlighted.data.doubles != null && map.clicked.data.doubles[i] > map.highlighted.data.doubles[i]) textSize(30);
-          text(map.clicked.data.display[i], x + widthW*.16, y*2.7 + i*.5*y);
+          text(map.clicked.data.display[i] , x + widthW*.16, y*2.7 + i*.5*y);
           textSize(18);
         }
 
