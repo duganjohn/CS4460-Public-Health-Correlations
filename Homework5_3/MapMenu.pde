@@ -1,9 +1,11 @@
 public class MapMenu{
   
-  private ArrayList<PImage> snapshots = new ArrayList<PImage>();
+  private ArrayList<Snapshot> snapshots = new ArrayList<Snapshot>();
   Button saveButton;
   ArrayList<Button> deleteButtons = new ArrayList<Button>();
   int y, x;
+  int numberOfSnapshots;
+  int deletedSnapshots;
   
   public MapMenu(int x, int y){
     this.y =y;
@@ -26,33 +28,56 @@ public class MapMenu{
   
   public void draw(){
     saveButton.draw();
-    drawSnapshots();
-    
+    for (Snapshot aSnapshot : snapshots){
+      aSnapshot.draw();
+    }
+
+    for (Button aDeleteButton : deleteButtons){
+      aDeleteButton.draw();
+    }
   }
   
   public void mousePressed(){
+     int deleteIndex = 0;
+     boolean deleted = false;
+     PImage image;
      if (saveButton.pressed()) {
        if (snapshots.size() > 5) {
          javax.swing.JOptionPane.showMessageDialog(null, "You may only save 6 views, please delete one or more views.");
        }
-       snapshots.add(get(0,150,800,400)); 
+       image = get(0,150,800,400);
+       snapshots.add(new Snapshot(image, numberOfSnapshots*200, heightH-130, 200, 120, 2000, "test")); 
+       Button deleteButton = new Button("X",numberOfSnapshots*200+190, heightH-130, 10,10, numberOfSnapshots);
+       deleteButtons.add(deleteButton);
+       numberOfSnapshots += 1;       
      }
+     
      for (Button aDeleteButton : deleteButtons){
        if (aDeleteButton.pressed()) {
-         snapshots.remove(aDeleteButton.getSnapshotIndex());
+         int snapshotIndex = aDeleteButton.getIndex(); 
+//         println(snapshotIndex + " " + snapshots.size() + " " + numberOfSnapshots + " " + deletedSnapshots);
+//         if (snapshotIndex < snapshots.size()){
+//           deleteIndex = snapshotIndex - deletedSnapshots;
+//         } else { deleteIndex = snapshotIndex;}
+//         if (deleteIndex < 0){
+//           deleteIndex = numberOfSnapshots - deletedSnapshots;
+//         }
+//         println("Delete Index: " + deleteIndex);
+         snapshots.remove(deleteIndex);
+         for (Button bDeleteButton : deleteButtons){
+           if (deleteIndex < bDeleteButton.getIndex()){
+             int aIndex = bDeleteButton.getIndex();
+             bDeleteButton.setIndex(aIndex-1);
+           }
+         }
+         deleted = true;
+         numberOfSnapshots -= 1;
+         deletedSnapshots += 1;
        }
      }
-  }
-  
-  public void drawSnapshots(){
-    int snapshotNum = 0;
-    for (PImage aSnapshot : snapshots){
-        image(aSnapshot, snapshotNum*200, heightH-130, 200, 120);
-        Button deleteButton = new Button("X",snapshotNum*200+190, heightH-130, 10,10, snapshotNum+1);
-        deleteButtons.add(deleteButton);
-        deleteButton.draw();
-        snapshotNum += 1;
-    }
+     if (deleted) {
+       deleteButtons.remove(deleteIndex);
+     }
   }
   
   
