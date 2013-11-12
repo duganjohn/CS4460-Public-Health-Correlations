@@ -54,25 +54,17 @@ public class MapMenu{
      
      for (Button aDeleteButton : deleteButtons){
        if (aDeleteButton.pressed()) {
-         int snapshotIndex = aDeleteButton.getIndex(); 
-//         println(snapshotIndex + " " + snapshots.size() + " " + numberOfSnapshots + " " + deletedSnapshots);
-//         if (snapshotIndex < snapshots.size()){
-//           deleteIndex = snapshotIndex - deletedSnapshots;
-//         } else { deleteIndex = snapshotIndex;}
-//         if (deleteIndex < 0){
-//           deleteIndex = numberOfSnapshots - deletedSnapshots;
-//         }
-//         println("Delete Index: " + deleteIndex);
-         snapshots.remove(deleteIndex);
+         int snapshotIndex = aDeleteButton.getIndex();
+         snapshots.remove(snapshotIndex);
+         deleteIndex = snapshotIndex;
+         numberOfSnapshots -= 1;
          for (Button bDeleteButton : deleteButtons){
-           if (deleteIndex < bDeleteButton.getIndex()){
-             int aIndex = bDeleteButton.getIndex();
+           int aIndex = bDeleteButton.getIndex();
+           if (deleteIndex < aIndex){
              bDeleteButton.setIndex(aIndex-1);
            }
          }
          deleted = true;
-         numberOfSnapshots -= 1;
-         deletedSnapshots += 1;
        }
      }
      if (deleted) {
