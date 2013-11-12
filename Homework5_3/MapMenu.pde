@@ -2,6 +2,7 @@ public class MapMenu{
   
   private ArrayList<PImage> snapshots = new ArrayList<PImage>();
   Button saveButton;
+  ArrayList<Button> deleteButtons = new ArrayList<Button>();
   int y, x;
   
   public MapMenu(int x, int y){
@@ -35,13 +36,21 @@ public class MapMenu{
          javax.swing.JOptionPane.showMessageDialog(null, "You may only save 6 views, please delete one or more views.");
        }
        snapshots.add(get(0,150,800,400)); 
-    }
+     }
+     for (Button aDeleteButton : deleteButtons){
+       if (aDeleteButton.pressed()) {
+         snapshots.remove(aDeleteButton.getSnapshotIndex());
+       }
+     }
   }
   
   public void drawSnapshots(){
     int snapshotNum = 0;
     for (PImage aSnapshot : snapshots){
         image(aSnapshot, snapshotNum*200, heightH-130, 200, 120);
+        Button deleteButton = new Button("X",snapshotNum*200+190, heightH-130, 10,10, snapshotNum+1);
+        deleteButtons.add(deleteButton);
+        deleteButton.draw();
         snapshotNum += 1;
     }
   }
@@ -50,6 +59,8 @@ public class MapMenu{
   public void drawYearSlider(){
 
   }
+  
+
     
 
 

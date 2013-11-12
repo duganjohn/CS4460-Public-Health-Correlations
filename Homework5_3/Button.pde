@@ -5,6 +5,7 @@ public class Button extends java.awt.Rectangle {
     int w;
     int h;
     String text;
+    int snapshotIndex;
     
     public Button(String text, int x,int y, int w, int h) {
       //call the java.awt.Polygon constructor
@@ -13,6 +14,14 @@ public class Button extends java.awt.Rectangle {
       this.w = w;
       this.h = h;
       
+    }
+    
+    public Button(String text, int x, int y, int w, int h, int snapshotIndex) {
+      super(x, y, w,h);
+      this.text = text;
+      this.w = w;
+      this.h = h;
+      this.snapshotIndex = snapshotIndex;
     }
    
     void draw() {
@@ -36,4 +45,9 @@ public class Button extends java.awt.Rectangle {
       } 
       return ans;
     }
+    
+    public int getSnapshotIndex() {
+      return snapshotIndex;
+    }
+    
 }
