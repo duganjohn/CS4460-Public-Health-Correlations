@@ -154,25 +154,105 @@ public class Map{
   //@param gradient The index of variable to change color to
   // 0 = None
   // 1 = Population
+  // 2 = health expend
+  // 3 = percent uninsured
+  // 4 = percent insured
+  // 5 = household income
   public void setView(float gradient){
-    for(State st: stateList){
       if (gradient==0){
+        
+        for(State st: stateList){
         //creates random color
         st.createColor();
+        }
       }
-      else{
+      if(gradient == 1){
          //go through every state and find the min and max value;
          //give a hue
          //change color hue for all states
-        
-           st.setColor(0,0,0); //setColor
+         double max = stateList.get(0).data.doubles[1];
+         double min = stateList.get(0).data.doubles[1];
+        for(State st: stateList){
+           if(st.data.doubles[1]<min)
+             min = st.data.doubles[1];
+           if(st.data.doubles[1]>max)
+             max = st.data.doubles[1];
+           //st.setColor(0,0,0); //setColor
+        }
+        colorMode(HSB,360,100,(int)max);
+        for(State st:stateList){
+          st.setColor(45, 100, (int)st.data.doubles[1]);
+        }
+    }
+    if(gradient == 2){
+    
+         double max = stateList.get(0).data.doubles[2];
+         double min = stateList.get(0).data.doubles[2];
+        for(State st: stateList){
+           if(st.data.doubles[2]<min)
+             min = st.data.doubles[2];
+           if(st.data.doubles[2]>max)
+             max = st.data.doubles[2];
+        }
+        colorMode(HSB,360,100,(int)max);
+        for(State st:stateList){
+          st.setColor(80, 100, (int)st.data.doubles[2]);
         }
     
     }
     
-
-   
-  }
+    if(gradient == 3){
+    
+         double max = stateList.get(0).data.doubles[3];
+         double min = stateList.get(0).data.doubles[3];
+        for(State st: stateList){
+           if(st.data.doubles[3]<min)
+             min = st.data.doubles[3];
+           if(st.data.doubles[3]>max)
+             max = st.data.doubles[3];
+           //st.setColor(0,0,0); //setColor
+        }
+        colorMode(HSB,360,100,(int)max);
+        for(State st:stateList){
+          st.setColor(220, 100, (int)st.data.doubles[3]);
+        }
+    
+    }
+    if(gradient == 4){
+    
+    
+         double max = stateList.get(0).data.doubles[4];
+         double min = stateList.get(0).data.doubles[4];
+        for(State st: stateList){
+           if(st.data.doubles[4]<min)
+             min = st.data.doubles[4];
+           if(st.data.doubles[4]>max)
+             max = st.data.doubles[4];
+           //st.setColor(0,0,0); //setColor
+        }
+        colorMode(HSB,360,100,(int)max);
+        for(State st:stateList){
+          st.setColor(150, 100, (int)st.data.doubles[4]);
+        }
+    }
+    if(gradient == 5){
+    
+         double max = stateList.get(0).data.doubles[5];
+         double min = stateList.get(0).data.doubles[5];
+        for(State st: stateList){
+           if(st.data.doubles[5]<min)
+             min = st.data.doubles[5];
+           if(st.data.doubles[5]>max)
+             max = st.data.doubles[5];
+           //st.setColor(0,0,0); //setColor
+        }
+        colorMode(HSB,360,100,(int)max);
+        for(State st:stateList){
+          st.setColor(300, 100, (int)st.data.doubles[5]);
+        }
+    
+    }
+ }
   
   /*
   * Resets so no states are highlighted
