@@ -1,3 +1,5 @@
+import java.util.*;
+
 public class MapMenu{
   
   private ArrayList<Snapshot> snapshots = new ArrayList<Snapshot>();
@@ -6,6 +8,7 @@ public class MapMenu{
   int y, x;
   int numberOfSnapshots;
   int deletedSnapshots;
+  ArrayList<Integer> availableSlots = new ArrayList<Integer>();
   
   public MapMenu(int x, int y){
     this.y =y;
@@ -23,7 +26,12 @@ public class MapMenu{
        .setSliderMode(Slider.FLEXIBLE)
        .setTriggerEvent(Slider.RELEASE) 
        ;
-       println(years);
+   availableSlots.add(0);
+   availableSlots.add(1);
+   availableSlots.add(2);
+   availableSlots.add(3);
+   availableSlots.add(4);
+   availableSlots.add(5);
   }
   
   public void draw(){
@@ -42,45 +50,41 @@ public class MapMenu{
      boolean deleted = false;
      PImage image;
      if (saveButton.pressed()) {
-       if (snapshots.size() > 5) {
+       if (availableSlots.size() < 1) {
          javax.swing.JOptionPane.showMessageDialog(null, "You may only save 6 views, please delete one or more views.");
-       }
+       } else {
        image = get(0,150,800,400);
-       snapshots.add(new Snapshot(image, numberOfSnapshots*200, heightH-130, 200, 120, 2000, "test")); 
-       Button deleteButton = new Button("X",numberOfSnapshots*200+190, heightH-130, 10,10, numberOfSnapshots);
-       deleteButtons.add(deleteButton);
-       numberOfSnapshots += 1;       
+       Collections.sort(availableSlots);
+       Integer slot = availableSlots.get(0);
+       snapshots.add(new Snapshot(image, slot, 2000, "test")); 
+       if (deleteButtons.size()<6){
+       Button deleteButton = new Button("X",slot*200+190, heightH-130, 10,10, slot);
+       deleteButtons.add(slot,deleteButton);
+       } else {
+         deleteButtons.get(slot).show();
+       }
+       availableSlots.remove(0);
+       }
      }
      
      for (Button aDeleteButton : deleteButtons){
        if (aDeleteButton.pressed()) {
          int snapshotIndex = aDeleteButton.getIndex();
-         snapshots.remove(snapshotIndex);
-         deleteIndex = snapshotIndex;
-         numberOfSnapshots -= 1;
-         for (Button bDeleteButton : deleteButtons){
-           int aIndex = bDeleteButton.getIndex();
-           if (deleteIndex < aIndex){
-             bDeleteButton.setIndex(aIndex-1);
-           }
-         }
+         Snapshot deletedSnapshot = snapshots.get(snapshotIndex);
+         deleteIndex = deletedSnapshot.getSlot();
+         println(deleteIndex);
+         deletedSnapshot.delete();
+         availableSlots.add(0,snapshotIndex);
          deleted = true;
        }
      }
+
      if (deleted) {
-       deleteButtons.remove(deleteIndex);
+       deleteButtons.get(deleteIndex).hide();
      }
   }
   
-  
   public void drawYearSlider(){
 
-  }
-  
-
-    
-
-
-  
-  
+  } 
 }

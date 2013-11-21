@@ -343,7 +343,7 @@ public class Map{
     fill(lightGray,80);
     noStroke();
     rect(x-wid/2,y + marginTop ,wid,hig);
-     fill(black);
+    fill(black);
     textAlign(CENTER, CENTER);
     textSize(14);
     text(st.name, x , marginTop + y + hig *2 / 10);
