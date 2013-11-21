@@ -25,7 +25,7 @@ public class MapMenu{
        .setColorTickMark(0)
        .snapToTickMarks(true) 
        .setSliderMode(Slider.FLEXIBLE)
-       .setTriggerEvent(Slider.RELEASE) 
+       .setTriggerEvent(Slider.PRESSED) 
        ;
    availableSlots.add(0);
    availableSlots.add(1);

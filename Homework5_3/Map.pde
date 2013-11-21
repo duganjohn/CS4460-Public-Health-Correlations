@@ -184,7 +184,7 @@ public class Map{
         }
         colorMode(HSB,360,100,(int)max);
         for(State st:stateList){
-          st.setColor(45, 100, (int)st.data.doubles[1]);
+          st.setColor(25, 100, (int)(st.data.doubles[1]*5));
         }
     }
     if(gradient == 2){
@@ -199,7 +199,7 @@ public class Map{
         }
         colorMode(HSB,360,100,(int)max);
         for(State st:stateList){
-          st.setColor(80, 100, (int)st.data.doubles[2]);
+          st.setColor(80, 100, (int)(st.data.doubles[2]*1.05));
         }
     
     }
@@ -253,7 +253,6 @@ public class Map{
         for(State st:stateList){
           st.setColor(300, 100, (int)st.data.doubles[5]);
         }
-    
     }
  }
  
