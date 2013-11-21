@@ -12,6 +12,7 @@ public class StateData{
   private Object[] items;
   private String[] display;
   private double[] doubles;
+  private float[] numFormat;
   
   public StateData(String name, int population, float medianIncome, int healthExp,
           float noInsCoverage, float insCoverage, float employmentBased,
@@ -54,7 +55,8 @@ public class StateData{
     this.medicaid = (int)Math.round(medicaid*1000);
     this.medicare = (int)Math.round(medicare*1000);
     this.military = (int)Math.round(military*1000);
-     
+    
+   
     updateArray();
   }
  
@@ -65,6 +67,12 @@ public class StateData{
     this.items = new Object[]{this.name, this.population, this.healthExp, this.noInsCoverage, this.insCoverage, this.medianIncome};
     this.display = new String[]{this.name, ""+this.population, "$ "+this.healthExp, this.noInsCoverage+" %", this.insCoverage+" %", "$ "+this.medianIncome};
     
+    this.numFormat = new float[]{(float)this.population, (float)this.healthExp, (float)this.noInsCoverage, (float)this.insCoverage, (float)this.medianIncome};
+     
+ }
+ 
+ public float[] getNumFormat(){
+   return numFormat;
  }
   
 }

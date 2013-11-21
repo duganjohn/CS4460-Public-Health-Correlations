@@ -140,6 +140,9 @@ void controlEvent(ControlEvent theEvent) {
           yearCheck = years;
          
           map.changeYear((int)(years - 1999));
+          if(gradientCheck!=0){
+            map.setView(gradientCheck);
+          }
         }
       }
     }
