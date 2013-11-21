@@ -16,8 +16,7 @@ public class Dropdown {
       ddl.setBackgroundColor(black); 
       ddl.setColorBackground(lightGray); 
       ddl.setSize(wid, hig);
-      ddl.setBarHeight(14); 
-     
+      ddl.setBarHeight(14);    
       ddl.setItemHeight(14);   
     }
   

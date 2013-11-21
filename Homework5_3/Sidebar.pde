@@ -19,7 +19,7 @@ public class Sidebar {
     fill(darkGray);
     strokeWeight(3);
     noStroke();
-    rect(x, y, widthW*.3, heightH*.7);
+    rect(x, y, widthW*.3, heightH*.7-25);
     
     // Creates the title
     fill(white);

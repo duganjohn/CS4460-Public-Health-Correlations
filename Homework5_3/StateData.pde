@@ -6,13 +6,14 @@ public class StateData{
   private int population, healthExp, 
     employmentBased,directPurchase,
     government,medicaid,medicare,military;
-  private float medianIncome, noInsCoverage, insCoverage;
+  private float noInsCoverage, insCoverage;
+  private int medianIncome;
     
   private Object[] items;
   private String[] display;
   private double[] doubles;
   
-  public StateData(String name, int population, float medianIncome, int healthExp,
+  public StateData(String name, int population, int medianIncome, int healthExp,
           float noInsCoverage, float insCoverage, float employmentBased,
           float directPurchase, float government, float medicaid, float medicare,
           float military){
@@ -27,7 +28,7 @@ public class StateData{
     
     }
     
-    public void updateData(int population, float medianIncome, int healthExp,
+    public void updateData(int population, int medianIncome, int healthExp,
           float noInsCoverage, float insCoverage, float employmentBased,
           float directPurchase, float government, float medicaid, float medicare,
           float military){
@@ -44,8 +45,8 @@ public class StateData{
 
     float ratio = insCoverage / (insCoverage + noInsCoverage);
 
-    this.insCoverage = (ratio * 100);
-    this.noInsCoverage = 100 - this.insCoverage;
+    this.insCoverage = Math.round((ratio * 100)*100.00)/100.00;
+    this.noInsCoverage = Math.round((100 - this.insCoverage)*100.00)/100.00;
     
     this.employmentBased = (int)Math.round(employmentBased*1000);
     this.directPurchase = (int)Math.round(directPurchase*1000);
