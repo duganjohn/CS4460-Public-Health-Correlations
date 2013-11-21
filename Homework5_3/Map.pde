@@ -123,7 +123,7 @@ public class Map{
       
       
      
-      StateData data = new StateData(name, population, medianIncome, healthExp,
+      StateData data = new StateData(name, population, (int)medianIncome, healthExp,
           noInsCoverage, insCoverage, employmentBased, directPurchase,
           government, medicaid, medicare, military);
       return data;
