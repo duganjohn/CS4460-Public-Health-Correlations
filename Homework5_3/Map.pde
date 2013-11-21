@@ -3,7 +3,8 @@ import java.awt.Polygon;
 public class Map{
   State highlighted = null;
   State clicked = null;
-
+  String view;
+  
   private ArrayList<State> stateList = new ArrayList<State>(50);
   // not exactly x and y
   
@@ -159,14 +160,16 @@ public class Map{
   // 4 = percent insured
   // 5 = household income
   public void setView(float gradient){
+      
       if (gradient==0){
-        
+        view = "None";
         for(State st: stateList){
         //creates random color
         st.createColor();
         }
       }
       if(gradient == 1){
+         view = "Population";
          //go through every state and find the min and max value;
          //give a hue
          //change color hue for all states
@@ -185,7 +188,7 @@ public class Map{
         }
     }
     if(gradient == 2){
-    
+         view = "Health Expenditures";
          double max = stateList.get(0).data.doubles[2];
          double min = stateList.get(0).data.doubles[2];
         for(State st: stateList){
@@ -202,7 +205,7 @@ public class Map{
     }
     
     if(gradient == 3){
-    
+        view = "Percent Uninsured";
          double max = stateList.get(0).data.doubles[3];
          double min = stateList.get(0).data.doubles[3];
         for(State st: stateList){
@@ -220,7 +223,7 @@ public class Map{
     }
     if(gradient == 4){
     
-    
+        view = "Percent Insured";
          double max = stateList.get(0).data.doubles[4];
          double min = stateList.get(0).data.doubles[4];
         for(State st: stateList){
@@ -236,7 +239,7 @@ public class Map{
         }
     }
     if(gradient == 5){
-    
+        view = "Median Income";
          double max = stateList.get(0).data.doubles[5];
          double min = stateList.get(0).data.doubles[5];
         for(State st: stateList){
@@ -252,6 +255,13 @@ public class Map{
         }
     
     }
+ }
+ 
+ public String getView(){
+   if (view == null){
+     view = "No gradient";
+   }
+   return view;
  }
   
   /*

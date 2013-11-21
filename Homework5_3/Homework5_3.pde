@@ -69,7 +69,7 @@ void setup(){
   int mapWidth = 800;
   map = new Map();
   sidebar = new Sidebar();
-  mapmenu = new MapMenu(0,heightH-190);
+  mapmenu = new MapMenu(map, 0,heightH-190);
 
 }
 

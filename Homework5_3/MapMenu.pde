@@ -1,7 +1,7 @@
 import java.util.*;
 
 public class MapMenu{
-  
+  Map map;
   private ArrayList<Snapshot> snapshots = new ArrayList<Snapshot>();
   Button saveButton;
   ArrayList<Button> deleteButtons = new ArrayList<Button>();
@@ -10,7 +10,8 @@ public class MapMenu{
   int deletedSnapshots;
   ArrayList<Integer> availableSlots = new ArrayList<Integer>();
   
-  public MapMenu(int x, int y){
+  public MapMenu(Map map, int x, int y){
+    this.map = map;
     this.y =y;
     this.x =x;
     saveButton = new Button("Save This View", 650, y, 150, 40);
@@ -56,7 +57,7 @@ public class MapMenu{
        image = get(0,150,800,400);
        Collections.sort(availableSlots);
        Integer slot = availableSlots.get(0);
-       snapshots.add(new Snapshot(image, slot, 2000, "test")); 
+       snapshots.add(new Snapshot(image, slot, (int)Math.round(cp5.getController("years").getValue()), map.getView())); 
        if (deleteButtons.size()<6){
        Button deleteButton = new Button("X",slot*200+190, heightH-130, 10,10, slot);
        deleteButtons.add(slot,deleteButton);
@@ -72,7 +73,6 @@ public class MapMenu{
          int snapshotIndex = aDeleteButton.getIndex();
          Snapshot deletedSnapshot = snapshots.get(snapshotIndex);
          deleteIndex = deletedSnapshot.getSlot();
-         println(deleteIndex);
          deletedSnapshot.delete();
          availableSlots.add(0,snapshotIndex);
          deleted = true;
