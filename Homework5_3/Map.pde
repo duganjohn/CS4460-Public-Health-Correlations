@@ -159,8 +159,7 @@ public class Map{
   // 3 = percent uninsured
   // 4 = percent insured
   // 5 = household income
-  public void setView(float gradient){
-      
+  /*public void setView(float gradient){
       if (gradient==0){
         view = "None";
         for(State st: stateList){
@@ -255,7 +254,8 @@ public class Map{
         }
     
     }
- }
+ //}
+ */
  
  public String getView(){
    if (view == null){
@@ -263,6 +263,87 @@ public class Map{
    }
    return view;
  }
+ 
+  // --- What Parameter is being looked at ----
+  //@param gradient The index of variable to change color to
+  // 0 = None
+  // 1 = Population
+  //needs to also get triggered when year changes
+  public void setView(float gradient){
+   
+      if (gradient==0){
+        //creates random color
+        for(State st: stateList){
+          st.createColor();
+        }
+      }
+      else{
+         //go through every state and find the min and max value;
+         //give a hue
+         //change color hue for all states
+         changeAllColors(gradient);
+          // st.setColor(0,0,0); //setColor
+        }
+   
+  }
+  
+  void changeAllColors(float gradient){
+    int H = 100;
+    int S = 100;
+    
+     view = typeName[(int)gradient-1];
+     if(gradient==1){
+       H = 10;
+       S = 100;
+     }
+     else if(gradient==2){
+       H = 40;
+       S = 80;
+     }
+     else if(gradient==3){
+       H = 60;
+       S = 80;
+     }
+     else if(gradient==4){
+       H = 80;
+       S = 80;
+     }
+     else{
+       H = 100;
+       S = 80;
+     }
+     float max = -1;
+     float min = 900000000;
+     for(State st: stateList){
+       float num = st.getStateData().getNumFormat()[(int)gradient-1];
+         if(num>max){
+           max = num;
+         }
+         else if(num<min){
+           min = num;
+         }
+     }
+     
+     //println(min + " " + max);
+   
+     for(State st: stateList){
+         float num = st.getStateData().getNumFormat()[(int)gradient-1];
+         int B = (int) ((num - min) / (max - min) * 100);
+         
+         if(num==0){
+           B = 74;
+         }
+         //want to make sure B isn't too dark
+         if (gradient==1){
+           B= (int)(B*.70 +30);
+         }
+         else{
+           B= (int)(B*.75 +25);
+         }
+         st.setColor(H,S,B);
+        }
+  }
+ 
   
   /*
   * Resets so no states are highlighted
