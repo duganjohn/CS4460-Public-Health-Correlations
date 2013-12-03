@@ -441,15 +441,22 @@ public class Map{
     String detail = "";
     if(gradientCheck==1){
       text("Population:  "+st.data.population ,x,  marginTop +  y + hig * 4 / 10);
-      
+    
+    }
+    if(gradientCheck==2){
+      text("Health Expenditures:  "+st.data.healthExp,x,  marginTop +  y + hig * 4 / 10);
+    }
+    if(gradientCheck==3){
+      text("Uninsured:  "+ st.data.noInsCoverage,x,  marginTop +  y + hig * 4 / 10);
+    }
+    if(gradientCheck==4){
+      text(st.data.insCoverage,x,  marginTop +  y + hig * 4 / 10);
+    }
+    if(gradientCheck==5){
+      text(st.data.medianIncome,x,  marginTop +  y + hig * 4 / 10);
     }
    // text("Population:      " + st.data.population, x , marginTop +  y + hig * 4 / 10);
   }
-  /*public int getRank(State sta, float gradient){
-   for(State st: stateList){
-     ArrayList<int> ranks = new ArrayList<int>();  
-   }
-  }*/
   
   
   public ArrayList<State> getStateList(){
