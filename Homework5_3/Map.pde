@@ -18,7 +18,7 @@ public class Map{
     XML[] state = xml.getChildren("state");
     
     int relX = 1550;
-    int relY = 900;
+    int relY = 870;
     int scaleX = 12;
     int scaleY = -15;
     
@@ -27,11 +27,11 @@ public class Map{
     for(int i=0; i<stateLength; i++){
       if(i==1){
         //make Alaska
-        makeState(state, 1, 700, 850, 4, -6);
+        makeState(state, 1, 700, 800, 4, -6);
       }
       else if(i==11){
         //make Hawaii
-         makeState(state, i, 2260, 750, 13, -13);
+         makeState(state, i, 2260, 700, 13, -13);
       }
       else{
         makeState(state, i, relX, relY, scaleX, scaleY);
@@ -438,8 +438,18 @@ public class Map{
     textAlign(CENTER, CENTER);
     textSize(14);
     text(st.name, x , marginTop + y + hig *2 / 10);
+    String detail = "";
+    if(gradientCheck==1){
+      text("Population:  "+st.data.population ,x,  marginTop +  y + hig * 4 / 10);
+      
+    }
    // text("Population:      " + st.data.population, x , marginTop +  y + hig * 4 / 10);
   }
+  /*public int getRank(State sta, float gradient){
+   for(State st: stateList){
+     ArrayList<int> ranks = new ArrayList<int>();  
+   }
+  }*/
   
   
   public ArrayList<State> getStateList(){
