@@ -5,7 +5,7 @@ public class Sidebar {
   int myColorBackground = color(white);
 
   public Sidebar() {
-    Dropdown vars = new Dropdown("Variables", x + 120, y + 100, 216, 500);
+    Dropdown vars = new Dropdown("Variables", x + 120, y + 80, 216, 500);
     
     // Add Items
     vars.addItem("None",0);
@@ -35,7 +35,7 @@ public class Sidebar {
     // Creates the label
     textSize(18);
     textAlign(LEFT);
-    text("Gradient:", x + 26, y + 97);
+    text("Gradient:", x + 26, y + 77);
     
     textSize(20);
     textAlign(CENTER);

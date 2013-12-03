@@ -13,6 +13,8 @@ public class StateData{
   private String[] display;
   private double[] doubles;
   
+  private float[] numFormat;
+  
   public StateData(String name, int population, int medianIncome, int healthExp,
           float noInsCoverage, float insCoverage, float employmentBased,
           float directPurchase, float government, float medicaid, float medicare,
@@ -63,6 +65,14 @@ public class StateData{
     this.items = new Object[]{this.name, this.population, this.healthExp, this.noInsCoverage, this.insCoverage, this.medianIncome};
     this.display = new String[]{this.name, ""+this.population, "$ "+this.healthExp, this.noInsCoverage+" %", this.insCoverage+" %", "$ "+this.medianIncome};
     
+    
+    
+    this.numFormat = new float[]{(float)this.population, (float)this.healthExp, (float)this.noInsCoverage, (float)this.insCoverage, (float)this.medianIncome};
+     
+ }
+ 
+  public float[] getNumFormat(){
+   return numFormat;
  }
   
 }

@@ -52,7 +52,7 @@ void setup(){
 
   
   // --- Canvas Setup ----
-  heightH = 820;
+  heightH = 720;
   widthW = 1200;
   size(widthW,heightH);
   background = white;
@@ -65,11 +65,11 @@ void setup(){
   cp5.setColorLabel(black);
   
   // --- Create Map ----
-  int marginTop = 130;
+  int marginTop = 100;
   int mapWidth = 800;
   map = new Map();
   sidebar = new Sidebar();
-  mapmenu = new MapMenu(map, 0,heightH-190);
+  mapmenu = new MapMenu(map, 0,heightH-200);
 
 }
 
@@ -140,6 +140,13 @@ void controlEvent(ControlEvent theEvent) {
           yearCheck = years;
          
           map.changeYear((int)(years - 1999));
+          
+          //change gradient if year changes
+          if(gradientCheck!=0){
+            map.setView(gradientCheck);
+          }
+          
+          
         }
       }
     }
