@@ -3,25 +3,30 @@ public class Snapshot{
   int slot;
   int year;
   String gradientLabel;
-  boolean textOn = true;
+  boolean notHidden = false;
   int x;
   int y = heightH-130;
   int w = 200;
   int h = 120;
   
+  public Snapshot(Integer slot){
+    this.slot = slot;
+  }
   
-  public Snapshot(PImage image, Integer slot, int year, String gradientLabel){
+  public void setSnapshot(PImage image, Integer slot, int year, String gradientLabel){
     this.image = image;
     this.slot = slot;
     this.year = year;
     this.x = slot*200;
     this.gradientLabel = gradientLabel;
+    notHidden = true;
     
   }
   
+  
   public void draw(){
-    image(image, x, y, w, h);
-    if (textOn){
+    if (notHidden){
+      image(image, x, y, w, h);
       text(gradientLabel+", "+year, (x+(w/2)), y+h-10);
     }
   }
@@ -31,8 +36,7 @@ public class Snapshot{
   }
   
   public void delete(){
-    image = new PImage(200,120,RGB);
-    textOn = false;
+    notHidden = false;
     draw();
   }
   

@@ -27,12 +27,11 @@ public class MapMenu{
        .setSliderMode(Slider.FLEXIBLE)
        .setTriggerEvent(Slider.PRESSED) 
        ;
-   availableSlots.add(0);
-   availableSlots.add(1);
-   availableSlots.add(2);
-   availableSlots.add(3);
-   availableSlots.add(4);
-   availableSlots.add(5);
+   
+   for (int i = 0; i < 6; i = i+1){
+     availableSlots.add(i);
+     snapshots.add(new Snapshot(i));
+   }
   }
   
   public void draw(){
@@ -54,10 +53,10 @@ public class MapMenu{
        if (availableSlots.size() < 1) {
          javax.swing.JOptionPane.showMessageDialog(null, "You may only save 6 views, please delete one or more views.");
        } else {
-       image = get(0,150,800,400);
+       image = get(0,100,800,400);
        Collections.sort(availableSlots);
        Integer slot = availableSlots.get(0);
-       snapshots.add(new Snapshot(image, slot, (int)Math.round(cp5.getController("years").getValue()), map.getView())); 
+       snapshots.get(slot).setSnapshot(image, slot, (int)Math.round(cp5.getController("years").getValue()), map.getView()); 
        if (deleteButtons.size()<6){
        Button deleteButton = new Button("X",slot*200+190, heightH-130, 10,10, slot);
        deleteButtons.add(slot,deleteButton);
