@@ -10,10 +10,12 @@ public class Snapshot{
   int h = 120;
   float gradientNumber;
   
+  //the snapshot is first created empty
   public Snapshot(Integer slot){
     this.slot = slot;
   }
   
+  //sets all the details of the snapshot
   public void setSnapshot(PImage image, int slot, int year, String gradientLabel) {
     this.image = image;
     this.slot = slot;
@@ -37,6 +39,7 @@ public class Snapshot{
     }
   }
   
+  //draws the snapshot if it's not hidden.
   public void draw() {
     if (notHidden){
       image(image, x, y, w, h);
@@ -48,10 +51,12 @@ public class Snapshot{
     }
   }
   
+  //changes the image
   public void setImage(PImage newImage) {
     image = newImage;
   }
   
+  //deletes the snapshot (makes it hidden)
   public void delete() {
     notHidden = false;
     draw();
@@ -69,6 +74,7 @@ public class Snapshot{
     return gradientNumber;
   }
 
+  //the snapshot can be pressed
   public boolean pressed(){
     boolean isPressed = false;
     if (mouseX >= x && mouseX < x+w) {

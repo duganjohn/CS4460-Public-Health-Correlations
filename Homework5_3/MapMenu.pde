@@ -31,6 +31,7 @@ public class MapMenu{
        .setTriggerEvent(Slider.PRESSED) 
        ;
    
+   //initialize all snashots and the available slots list.
    for (int i = 0; i < 6; i = i+1){
      availableSlots.add(i);
      snapshots.add(new Snapshot(i));
@@ -38,6 +39,7 @@ public class MapMenu{
 
   }
   
+  //draws the save button, all snapshots, and all deletebuttons.
   public void draw(){
     saveButton.draw();
     for (Snapshot aSnapshot : snapshots){
@@ -53,6 +55,8 @@ public class MapMenu{
      int deleteIndex = 0;
      boolean deleted = false;
      PImage image;
+     
+     //adds the screenshot if the save button is pressed
      if (saveButton.pressed()) {
        if (map.getView() == null) {
          map.setView(0);
@@ -74,6 +78,7 @@ public class MapMenu{
        }
      }
      
+     //loops through all delete buttons to check if any were pressed, and update the snapshots accordingly.
      for (Button aDeleteButton : deleteButtons){
        if (aDeleteButton.pressed()) {
          int snapshotIndex = aDeleteButton.getIndex();
@@ -84,16 +89,19 @@ public class MapMenu{
          deleted = true;
        }
      }
-
+     
+     //hides the delete button if needed.
      if (deleted) {
        deleteButtons.get(deleteIndex).hide();
      }
      
+     //updates the main screen with the clicked snapshot.
      for (Snapshot aSnapshot : snapshots) {
        if (aSnapshot.pressed()) {
          //update image       
+         gradientCheck = aSnapshot.getGradientNumber();
          map.setView(aSnapshot.getGradientNumber());
-         map.changeYear(aSnapshot.getYear()-1999 );
+         map.changeYear(aSnapshot.getYear()-1999);
          cp5.getController("years").setValue(aSnapshot.getYear());
        }
      }
