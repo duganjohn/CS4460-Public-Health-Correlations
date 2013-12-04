@@ -88,7 +88,9 @@ public class MapMenu{
      for (Snapshot aSnapshot : snapshots) {
        if (aSnapshot.pressed()) {
          //update image
-         map.changeYear(2012-aSnapshot.getYear());
+         map.changeYear(aSnapshot.getYear()-2000);
+         //draw();
+         println(aSnapshot.getYear());
          //map.setView(1);
        }
      }
