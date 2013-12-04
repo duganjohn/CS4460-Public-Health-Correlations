@@ -1,5 +1,8 @@
 import java.awt.Polygon; 
 
+/*
+ * Creates the map
+ */
 public class Map{
   State highlighted = null;
   State clicked = null;
@@ -90,7 +93,7 @@ public class Map{
   
   /*
   *Created to reuse this reader 
-  @param i stateIndex
+  *@param i stateIndex
   *@param yearIndex
   *@return stateData
   */
@@ -480,31 +483,32 @@ public class Map{
       fill(black);
       textAlign(CENTER, CENTER);
       textSize(18);
+      
+      // Determine legend type
       if(gradientCheck==1) tex = "Population";
       if(gradientCheck==2) tex = "Health Expenditures";
       if(gradientCheck==3) tex = "Uninsured";
       if(gradientCheck==4) tex = "Insured";
       if(gradientCheck==5) tex = "Median Income";
+      
+      // Create Title Text
       text(tex, X + wid/2, Y + 12);
   
+      // Create Left Text
       textSize(14);
       textAlign(LEFT);
       text((int)Math.round(minMax[0])+"", X + 10, Y + 42);
       
+      // Create Right Text
       textAlign(RIGHT);
       text((int)Math.round(minMax[1])+"", X + wid - 10, Y + 42);
-      //line(X + 5, Y + 40, X + 5, Y + 60);
-      //line(X + wid - 5, Y + 40, X + wid - 5, Y + 60);
       
-      color c1, c2;
-      c1 = color(H, S, minB);
-      c2 = color(H, S, maxB);
+      // Create gradient
       noFill();
       colorMode(HSB,100);
       for (int i = X + 15; i <= X + wid - 15; i++) {
         float inter = map(i, X + 15, X + wid - 15, 0, 1);
-        stroke(color(H, S, minB * (1-inter) + maxB * inter));
-        //stroke(lerpColor(c1,c2,inter));
+        stroke(color(H, S, (int)Math.round(minMax[2]) * (1-inter) + (int)Math.round(minMax[3]) * inter));    // interpolate between colors on scale
         strokeWeight(20);
         line(i, Y + 60, i, Y + 60);
       }
@@ -516,18 +520,27 @@ public class Map{
     return stateList;
   }
   
+  /*
+   * Finds the min and max values of the states' in the specific type, then in the brightness
+   *
+   * @return array containing: min of type, max of type, min brightness, max brightness
+   */
   public double[] minMax() {
-    double[] minMax = new double[2];
+    double[] minMax = new double[4];
     
     for (int i = 0; i < 6; i++) {
       if(gradientCheck == i){
-         minMax[1] = stateList.get(0).data.doubles[i];
          minMax[0] = stateList.get(0).data.doubles[i];
+         minMax[1] = stateList.get(0).data.doubles[i];
+         minMax[2] = 100;
+         minMax[3] = 0;
+         
+        // Iterate through states
         for(State st: stateList){
-           if(st.data.doubles[i] < minMax[0])
-             minMax[0] = st.data.doubles[i];
-           if(st.data.doubles[i] > minMax[1])
-             minMax[1] = st.data.doubles[i];
+           if(st.data.doubles[i] < minMax[0]) minMax[0] = st.data.doubles[i];
+           if(st.data.doubles[i] > minMax[1]) minMax[1] = st.data.doubles[i];
+           if(st.brightness < minMax[2]) minMax[2] = st.brightness;
+           if(st.brightness > minMax[3]) minMax[3] = st.brightness;
         }    
       }
     }

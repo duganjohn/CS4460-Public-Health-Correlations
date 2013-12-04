@@ -1,4 +1,6 @@
-
+/*
+ * Creates the control panel
+ */
 public class Sidebar {
   float x = widthW*.7;
   float y = heightH*.15;

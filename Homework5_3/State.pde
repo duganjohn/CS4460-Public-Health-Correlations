@@ -9,6 +9,7 @@ public class State{
   // --- If it's being accessed in another window
   private boolean brushing;
   private color stateColor;
+  private int brightness;
   
   private StateData data;
   private int centerX;
@@ -52,8 +53,9 @@ public class State{
   //Overriding of color. If gradient is turned on
   public void setColor(int H, int S, int B){
     stateColor = color(H, S, B);
+    brightness = B;
   }
-  
+    
   public void setHighlight(boolean tf){
     highlight = tf;
   }
