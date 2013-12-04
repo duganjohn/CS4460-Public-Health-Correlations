@@ -4,6 +4,7 @@ public class Map{
   State highlighted = null;
   State clicked = null;
   String view;
+  private int H = 100, S = 100, B = 100, minB = 0, maxB = 100;
   
   private ArrayList<State> stateList = new ArrayList<State>(50);
   // not exactly x and y
@@ -70,7 +71,7 @@ public class Map{
     //hardcode center if D.C.
      if(i == 8){
        centerX = 655;
-       centerY = 405;
+       centerY = 375;
      }     
        
        State aState = new State(state[i].getString("name"), state[i].getString("abb"), 
@@ -286,10 +287,7 @@ public class Map{
    
   }
   
-  void changeAllColors(float gradient){
-    int H = 100;
-    int S = 100;
-    
+  void changeAllColors(float gradient){   
      view = typeName[(int)gradient-1];
      if(gradient==1){
        H = 10;
@@ -327,7 +325,7 @@ public class Map{
    
      for(State st: stateList){
          float num = st.getStateData().getNumFormat()[(int)gradient-1];
-         int B = (int) ((num - min) / (max - min) * 100);
+         B = (int) ((num - min) / (max - min) * 100);
          
          if(num==0){
            B = 74;
@@ -340,6 +338,13 @@ public class Map{
            B= (int)(B*.75 +25);
          }
          st.setColor(H,S,B);
+         
+         if(B>maxB){
+           maxB = B;
+         }
+         else if(B<minB){
+           minB = B;
+         }
         }
   }
  
@@ -421,6 +426,7 @@ public class Map{
       //currentHighlight = highlighted;
     }
     
+    drawLegend();
  }
   
   /*
@@ -440,19 +446,92 @@ public class Map{
     String detail = "";
     if(gradientCheck==1){
       text("Population:  "+st.data.population ,x,  marginTop +  y + hig * 4 / 10);
-      
+    
+    }
+    if(gradientCheck==2){
+      text("Health Expenditures:  "+st.data.healthExp,x,  marginTop +  y + hig * 4 / 10);
+    }
+    if(gradientCheck==3){
+      text("Uninsured:  "+ st.data.noInsCoverage,x,  marginTop +  y + hig * 4 / 10);
+    }
+    if(gradientCheck==4){
+      text(st.data.insCoverage,x,  marginTop +  y + hig * 4 / 10);
+    }
+    if(gradientCheck==5){
+      text(st.data.medianIncome,x,  marginTop +  y + hig * 4 / 10);
     }
    // text("Population:      " + st.data.population, x , marginTop +  y + hig * 4 / 10);
   }
-  /*public int getRank(State sta, float gradient){
-   for(State st: stateList){
-     ArrayList<int> ranks = new ArrayList<int>();  
-   }
-  }*/
+  
+  /*
+   * Creates the legend for the map
+   */   
+  public void drawLegend() {
+    if(gradientCheck!=0) {
+      int wid = 200, hig = 80;
+      int X = 620, Y = 420;
+      int marginTop = 20;
+      String tex = "Legend";
+      double[] minMax = minMax();
+      fill(lightGray);
+      stroke(black);
+      strokeWeight(2);
+      rect(X, Y, wid, hig);
+      fill(black);
+      textAlign(CENTER, CENTER);
+      textSize(18);
+      if(gradientCheck==1) tex = "Population";
+      if(gradientCheck==2) tex = "Health Expenditures";
+      if(gradientCheck==3) tex = "Uninsured";
+      if(gradientCheck==4) tex = "Insured";
+      if(gradientCheck==5) tex = "Median Income";
+      text(tex, X + wid/2, Y + 12);
+  
+      textSize(14);
+      textAlign(LEFT);
+      text((int)Math.round(minMax[0])+"", X + 10, Y + 42);
+      
+      textAlign(RIGHT);
+      text((int)Math.round(minMax[1])+"", X + wid - 10, Y + 42);
+      //line(X + 5, Y + 40, X + 5, Y + 60);
+      //line(X + wid - 5, Y + 40, X + wid - 5, Y + 60);
+      
+      color c1, c2;
+      c1 = color(H, S, minB);
+      c2 = color(H, S, maxB);
+      noFill();
+      colorMode(HSB,100);
+      for (int i = X + 15; i <= X + wid - 15; i++) {
+        float inter = map(i, X + 15, X + wid - 15, 0, 1);
+        stroke(color(H, S, minB * (1-inter) + maxB * inter));
+        //stroke(lerpColor(c1,c2,inter));
+        strokeWeight(20);
+        line(i, Y + 60, i, Y + 60);
+      }
+    }
+ }
   
   
   public ArrayList<State> getStateList(){
     return stateList;
   }
-
+  
+  public double[] minMax() {
+    double[] minMax = new double[2];
+    
+    for (int i = 0; i < 6; i++) {
+      if(gradientCheck == i){
+         minMax[1] = stateList.get(0).data.doubles[i];
+         minMax[0] = stateList.get(0).data.doubles[i];
+        for(State st: stateList){
+           if(st.data.doubles[i] < minMax[0])
+             minMax[0] = st.data.doubles[i];
+           if(st.data.doubles[i] > minMax[1])
+             minMax[1] = st.data.doubles[i];
+        }    
+      }
+    }
+  
+    return minMax;
+  }
 }
