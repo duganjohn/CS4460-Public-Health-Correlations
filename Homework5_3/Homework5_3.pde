@@ -18,6 +18,7 @@ private int widthW;
 private int heightH;
 String[] typeName = {"Population","Health Expeditures","Percent Uninsured","Percent Insured","Median Household Income"};
 
+// Reads in the data from Excel Spreadsheets
 ControlP5 cp5;
 XlsReader reader;
       
@@ -73,7 +74,9 @@ void setup(){
 
 }
 
-/*loads all fonts*/
+/*
+ * Loads all fonts
+ */
 void fontLoad(){
   font48 = loadFont("SofiaProLight-48.vlw");
   font36 = loadFont("SofiaProLight-36.vlw");

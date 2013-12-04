@@ -1,5 +1,8 @@
 import java.util.*;
 
+/*
+ * Creates the menu at the bottom of the page with saved screenshots
+ */
 public class MapMenu{
   Map map;
   private ArrayList<Snapshot> snapshots = new ArrayList<Snapshot>();
