@@ -263,9 +263,6 @@ public class Map{
  */
  
  public String getView(){
-   //if (view == null){
-   //  view = "No Gradient";
-   //}
    return view;
  }
  
