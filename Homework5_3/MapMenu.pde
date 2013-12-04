@@ -99,9 +99,9 @@ public class MapMenu{
      for (Snapshot aSnapshot : snapshots) {
        if (aSnapshot.pressed()) {
          //update image       
+         gradientCheck = aSnapshot.getGradientNumber();
          map.setView(aSnapshot.getGradientNumber());
          map.changeYear(aSnapshot.getYear()-1999);
-         gradientCheck = aSnapshot.getGradientNumber();
          cp5.getController("years").setValue(aSnapshot.getYear());
        }
      }
