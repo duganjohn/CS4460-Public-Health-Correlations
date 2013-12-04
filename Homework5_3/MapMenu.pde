@@ -62,7 +62,6 @@ public class MapMenu{
        } else {
        image = get(0,100,800,400);
        Collections.sort(availableSlots);
-       println(availableSlots);
        int slot = availableSlots.get(0);
        snapshots.get(slot).setSnapshot(image, slot, (int)Math.round(cp5.getController("years").getValue()), map.getView()); 
        if (deleteButtons.size()<6){

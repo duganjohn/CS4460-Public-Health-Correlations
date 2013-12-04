@@ -22,25 +22,17 @@ public class Snapshot{
     this.gradientLabel = gradientLabel;
     notHidden = true;
     if (gradientLabel == "No Gradient") {
-      println(gradientNumber);
       gradientNumber = 0;
     } else if (gradientLabel == "Population") {
       gradientNumber = 1;
-      println(gradientNumber);
     } else if (gradientLabel == "Health Expenditures") {
       gradientNumber = 2;
-      println(gradientNumber);
     } else if (gradientLabel == "Percent Uninsured") {
       gradientNumber = 3;
-      println(gradientNumber);
     } else if (gradientLabel == "Percent Insured") {
       gradientNumber = 4;
-      println(gradientNumber);
     }else if (gradientLabel == "Median Household Income") {
       gradientNumber = 5;
-      println(gradientNumber);
-      
-      
       
     }
   }
@@ -48,7 +40,11 @@ public class Snapshot{
   public void draw() {
     if (notHidden){
       image(image, x, y, w, h);
+      if (gradientLabel == "Median Household Income") {
+        text("Median Income , "+year,(x+(w/2)),y+h-10);
+      } else{
       text(gradientLabel+", "+year, (x+(w/2)), y+h-10);
+      }
     }
   }
   
@@ -70,7 +66,6 @@ public class Snapshot{
   }
   
   public float getGradientNumber() {
-    //println("gradient number: ", gradientNumber);
     return gradientNumber;
   }
 
