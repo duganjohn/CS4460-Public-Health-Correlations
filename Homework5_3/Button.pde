@@ -59,10 +59,12 @@ public class Button extends java.awt.Rectangle {
       index = newIndex;
     }
     
+    // used for the delete buttons
     public void hide(){
       isHidden = true;
     }
     
+    // used for the delete buttons    
     public void show(){
       isHidden = false;
     }

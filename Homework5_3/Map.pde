@@ -136,9 +136,7 @@ public class Map{
   public void changeYear(int yearIndex){
     for(int i = 0; i< stateList.size(); i++){
       stateList.get(i).data = null;
-      
       stateList.get(i).setStateData(makeStateData(i, yearIndex));
-      
     }
   }
   
@@ -272,7 +270,7 @@ public class Map{
   // 1 = Population
   //needs to also get triggered when year changes
   public void setView(float gradient){
-   
+      view = typeName[(int)gradient];
       if (gradient==0){
         //creates random color
         for(State st: stateList){
