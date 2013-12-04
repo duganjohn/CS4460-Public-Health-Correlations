@@ -16,14 +16,14 @@ public float years;
 
 private int widthW;
 private int heightH;
-String[] typeName = {"Population","Health Expeditures","Percent Uninsured","Percent Insured","Median Household Income"};
+String[] typeName = {"No Gradient", "Population","Health Expenditures","Percent Uninsured","Percent Insured","Median Household Income"};
 
 // Reads in the data from Excel Spreadsheets
 ControlP5 cp5;
 XlsReader reader;
       
 color[] typeColor;
-color blue, green, purple, orange, magenta, red, lightGray, black, white, darkGray;
+color blue, green, purple, orange, magenta, red, lightGray, black, white, darkGray, lighterGray;
 
 
 
@@ -44,7 +44,8 @@ void setup(){
   magenta = color(90,80,100);
   red = color(100,83,100);
   lightGray = color(80);
-  darkGray = color(34);
+  lighterGray = color(90);
+  darkGray = color(40);
   black = color(0);
   white = color(100);
   color[] typeColorTemp = {blue,green,purple,orange, magenta,red};
