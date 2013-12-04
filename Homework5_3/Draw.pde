@@ -22,7 +22,7 @@ public class Draw{
   * Redraws Everything.
   */
   public void draw(){
-    background(lighterGray);
+    background(background);
     title();
     sidebar.drawSidebar();
     map.drawMap();
