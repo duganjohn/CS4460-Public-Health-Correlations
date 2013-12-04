@@ -32,7 +32,7 @@ public class Sidebar {
     // Creates the year label
     textFont(font36, 32);
     textAlign(CENTER);
-    text((int)years+"", x + widthW*.15, y*2.1);  
+    text((int)years+"", x + widthW*.15, y*2.1+20);  
     
     // Creates the label
     textSize(18);
@@ -41,12 +41,12 @@ public class Sidebar {
     
     textSize(20);
     textAlign(CENTER);
-    text("State", x + widthW*.15, y * 2.5);
+    text("State", x + widthW*.15, y * 2.5+20);
     fill(white);
-    rect(x, y*2.25, widthW*.3, 2);
+    rect(x, y*2+40, widthW*.3, 2);
     for (int i = 1; i < typeName.length; i++) {
-      text(typeName[i-1], x + widthW*.15, y*3 + y*.5*(i-1));
-      rect(x, y*2.75 + y*(i-1)*.5, widthW*.3, 2);
+      text(typeName[i], x + widthW*.15, y*3 + y*.5*(i)-20);
+      rect(x, y*2.75 + y*(i)*.5-20, widthW*.3, 2);
     }
     
     // Highlighted state information
@@ -57,7 +57,7 @@ public class Sidebar {
       for (int i = 0; i < map.highlighted.data.display.length; i++)
         if(map.highlighted.data.display[i] != null) {
           if (map.clicked != null && map.clicked.data.doubles != null && map.highlighted.data.doubles[i] > map.clicked.data.doubles[i]) textSize(30);
-          text(map.highlighted.data.display[i], x + widthW*.14, y*2.7 + i*.5*y);
+          text(map.highlighted.data.display[i], x + widthW*.14, y*2.7 + i*.5*y+24);
           textSize(18);
         }
 
@@ -70,7 +70,7 @@ public class Sidebar {
       for (int i = 0; i < map.clicked.data.display.length; i++)
         if(map.clicked.data.display[i] != null) {
           if (map.highlighted != null && map.highlighted.data.doubles != null && map.clicked.data.doubles[i] > map.highlighted.data.doubles[i]) textSize(30);
-          text(map.clicked.data.display[i], x + widthW*.16, y*2.7 + i*.5*y);
+          text(map.clicked.data.display[i], x + widthW*.16, y*2.7+ i*.5*y+24);
           textSize(18);
         }
 
