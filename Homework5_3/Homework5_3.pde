@@ -22,7 +22,7 @@ ControlP5 cp5;
 XlsReader reader;
       
 color[] typeColor;
-color blue, green, purple, orange, magenta, red, lightGray, black, white, darkGray;
+color blue, green, purple, orange, magenta, red, lightGray, black, white, darkGray, lighterGray;
 
 
 
@@ -43,7 +43,8 @@ void setup(){
   magenta = color(90,80,100);
   red = color(100,83,100);
   lightGray = color(80);
-  darkGray = color(34);
+  lighterGray = color(90);
+  darkGray = color(40);
   black = color(0);
   white = color(100);
   color[] typeColorTemp = {blue,green,purple,orange, magenta,red};

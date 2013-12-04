@@ -58,8 +58,8 @@ public class MapMenu{
        Integer slot = availableSlots.get(0);
        snapshots.get(slot).setSnapshot(image, slot, (int)Math.round(cp5.getController("years").getValue()), map.getView()); 
        if (deleteButtons.size()<6){
-       Button deleteButton = new Button("X",slot*200+190, heightH-130, 10,10, slot);
-       deleteButtons.add(slot,deleteButton);
+         Button deleteButton = new Button("X",slot*200+190, heightH-130, 10,10, slot);
+         deleteButtons.add(slot,deleteButton);
        } else {
          deleteButtons.get(slot).show();
        }
@@ -80,6 +80,14 @@ public class MapMenu{
 
      if (deleted) {
        deleteButtons.get(deleteIndex).hide();
+     }
+     
+     for (Snapshot aSnapshot : snapshots) {
+       if (aSnapshot.pressed()) {
+         //update image
+         map.changeYear(2012-aSnapshot.getYear());
+         //map.setView(1);
+       }
      }
   }
   

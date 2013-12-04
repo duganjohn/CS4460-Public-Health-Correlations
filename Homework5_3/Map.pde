@@ -19,7 +19,7 @@ public class Map{
     XML[] state = xml.getChildren("state");
     
     int relX = 1550;
-    int relY = 870;
+    int relY = 850;
     int scaleX = 12;
     int scaleY = -15;
     

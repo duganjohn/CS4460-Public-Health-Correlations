@@ -11,18 +11,18 @@ public class Draw{
   public void title(){
     fill(darkGray);
     noStroke();
-    rect(0,0,width,100);
-    fill(background);
+    //rect(0,0,width,100);
+    //fill(background);
     textFont(font48, 48);
-    textAlign(CENTER);
-    text("U.S. Public Health Correlations", width/2, 65);  
+    textAlign(LEFT);
+    text("U.S. Public Health Correlations", 20, 65);  
   }
   
   /* 
   * Redraws Everything.
   */
   public void draw(){
-    background(background);
+    background(lighterGray);
     title();
     sidebar.drawSidebar();
     map.drawMap();
