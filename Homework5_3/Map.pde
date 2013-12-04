@@ -71,7 +71,7 @@ public class Map{
     //hardcode center if D.C.
      if(i == 8){
        centerX = 655;
-       centerY = 405;
+       centerY = 375;
      }     
        
        State aState = new State(state[i].getString("name"), state[i].getString("abb"), 
@@ -490,10 +490,12 @@ public class Map{
   
       textSize(14);
       textAlign(LEFT);
-      text((int)Math.round(minMax[0])+"", X + 10, Y + 45);
+      text((int)Math.round(minMax[0])+"", X + 10, Y + 42);
       
       textAlign(RIGHT);
-      text((int)Math.round(minMax[1])+"", X + wid - 10, Y + 45);
+      text((int)Math.round(minMax[1])+"", X + wid - 10, Y + 42);
+      //line(X + 5, Y + 40, X + 5, Y + 60);
+      //line(X + wid - 5, Y + 40, X + wid - 5, Y + 60);
       
       color c1, c2;
       c1 = color(H, S, minB);
