@@ -98,11 +98,10 @@ public class Map{
   *@return stateData
   */
   public StateData makeStateData(int i, int yearIndex){
-      
+     
       //51 because of D.C.
        i = i+yearIndex*51 +1;
-     
-     
+
       String name = reader.getString(i,0);
    
       int year = reader.getInt(i,1);
@@ -131,12 +130,15 @@ public class Map{
           noInsCoverage, insCoverage, employmentBased, directPurchase,
           government, medicaid, medicare, military);
       return data;
+     
   }
   
   public void changeYear(int yearIndex){
     for(int i = 0; i< stateList.size(); i++){
       stateList.get(i).data = null;
+      
       stateList.get(i).setStateData(makeStateData(i, yearIndex));
+      
     }
   }
   
@@ -261,9 +263,9 @@ public class Map{
  */
  
  public String getView(){
-   if (view == null){
-     view = "No gradient";
-   }
+   //if (view == null){
+   //  view = "No Gradient";
+   //}
    return view;
  }
  
@@ -279,6 +281,7 @@ public class Map{
         for(State st: stateList){
           st.createColor();
         }
+        view = "No Gradient";
       }
       else{
          //go through every state and find the min and max value;
@@ -291,7 +294,7 @@ public class Map{
   }
   
   void changeAllColors(float gradient){   
-     view = typeName[(int)gradient-1];
+     view = typeName[(int)gradient];
      if(gradient==1){
        H = 10;
        S = 100;

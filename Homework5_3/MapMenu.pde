@@ -35,6 +35,7 @@ public class MapMenu{
      availableSlots.add(i);
      snapshots.add(new Snapshot(i));
    }
+
   }
   
   public void draw(){
@@ -53,12 +54,16 @@ public class MapMenu{
      boolean deleted = false;
      PImage image;
      if (saveButton.pressed()) {
+       if (map.getView() == null) {
+         map.setView(0);
+       }
        if (availableSlots.size() < 1) {
          javax.swing.JOptionPane.showMessageDialog(null, "You may only save 6 views, please delete one or more views.");
        } else {
        image = get(0,100,800,400);
        Collections.sort(availableSlots);
-       Integer slot = availableSlots.get(0);
+       println(availableSlots);
+       int slot = availableSlots.get(0);
        snapshots.get(slot).setSnapshot(image, slot, (int)Math.round(cp5.getController("years").getValue()), map.getView()); 
        if (deleteButtons.size()<6){
          Button deleteButton = new Button("X",slot*200+190, heightH-130, 10,10, slot);
@@ -87,11 +92,10 @@ public class MapMenu{
      
      for (Snapshot aSnapshot : snapshots) {
        if (aSnapshot.pressed()) {
-         //update image
-         map.changeYear(aSnapshot.getYear()-2000);
-         //draw();
-         println(aSnapshot.getYear());
-         //map.setView(1);
+         //update image       
+         map.setView(aSnapshot.getGradientNumber());
+         map.changeYear(aSnapshot.getYear()-1999 );
+         cp5.getController("years").setValue(aSnapshot.getYear());
        }
      }
   }

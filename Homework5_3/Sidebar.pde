@@ -3,7 +3,7 @@
  */
 public class Sidebar {
   float x = widthW*.7;
-  float y = heightH*.15;
+  float y = heightH*.12;
   int myColorBackground = color(white);
 
   public Sidebar() {
@@ -11,8 +11,8 @@ public class Sidebar {
     
     // Add Items
     vars.addItem("None",0);
-    for (int i = 0; i < typeName.length; i++) 
-      vars.addItem(typeName[i],i+1);
+    for (int i = 1; i < typeName.length; i++) 
+      vars.addItem(typeName[i],i);
       vars.setIndex(0);
    }
 
@@ -44,9 +44,9 @@ public class Sidebar {
     text("State", x + widthW*.15, y * 2.5);
     fill(white);
     rect(x, y*2.25, widthW*.3, 2);
-    for (int i = 0; i < typeName.length; i++) {
-      text(typeName[i], x + widthW*.15, y*3 + y*.5*i);
-      rect(x, y*2.75 + y*i*.5, widthW*.3, 2);
+    for (int i = 1; i < typeName.length; i++) {
+      text(typeName[i-1], x + widthW*.15, y*3 + y*.5*(i-1));
+      rect(x, y*2.75 + y*(i-1)*.5, widthW*.3, 2);
     }
     
     // Highlighted state information

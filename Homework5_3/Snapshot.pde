@@ -21,18 +21,24 @@ public class Snapshot{
     this.x = slot*200;
     this.gradientLabel = gradientLabel;
     notHidden = true;
-    if (gradientLabel == "No gradient") {
+    if (gradientLabel == "No Gradient") {
+      println(gradientNumber);
       gradientNumber = 0;
     } else if (gradientLabel == "Population") {
       gradientNumber = 1;
+      println(gradientNumber);
     } else if (gradientLabel == "Health Expenditures") {
       gradientNumber = 2;
+      println(gradientNumber);
     } else if (gradientLabel == "Percent Uninsured") {
       gradientNumber = 3;
+      println(gradientNumber);
     } else if (gradientLabel == "Percent Insured") {
       gradientNumber = 4;
-    }else if (gradientLabel == "Household Income") {
+      println(gradientNumber);
+    }else if (gradientLabel == "Median Household Income") {
       gradientNumber = 5;
+      println(gradientNumber);
       
       
       
@@ -64,37 +70,14 @@ public class Snapshot{
   }
   
   public float getGradientNumber() {
+    //println("gradient number: ", gradientNumber);
     return gradientNumber;
   }
- // public float getGradientNumber() {
-//    float number;
-//    switch (gradientLabel) {
-//      case "No gradient" : number = 0;
-//      break;
-//      case "Population" : number = 1;
-//                          break;
-//      case "Health Expenditures" : number = 2;
-//                                   break;
-//      case "Percent Uninsured" : number = 3;
-//        break;
-//       case "Percent Insured" : number = 4;
-//      break;
-//     case "Household Income" : number = 5;
-//    break; 
-//      
-//   // 0 = None
-//  // 1 = Population
-//  // 2 = health expend
-//  // 3 = percent uninsured
-//  // 4 = percent insured
-//  // 5 = household income
-//  }
-//  }
-//  
+
   public boolean pressed(){
     boolean isPressed = false;
     if (mouseX >= x && mouseX < x+w) {
-      if (mouseY >= (y) && mouseY < (y+h)){
+      if (mouseY >= (y+10) && mouseY < (y+h)){
         isPressed = true;
       }
     }

@@ -16,7 +16,7 @@ public float years;
 
 private int widthW;
 private int heightH;
-String[] typeName = {"Population","Health Expeditures","Percent Uninsured","Percent Insured","Median Household Income"};
+String[] typeName = {"No Gradient", "Population","Health Expenditures","Percent Uninsured","Percent Insured","Median Household Income"};
 
 // Reads in the data from Excel Spreadsheets
 ControlP5 cp5;
