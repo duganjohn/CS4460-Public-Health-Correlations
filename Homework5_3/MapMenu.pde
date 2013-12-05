@@ -64,6 +64,9 @@ public class MapMenu{
        if (availableSlots.size() < 1) {
          javax.swing.JOptionPane.showMessageDialog(null, "You may only save 6 views, please delete one or more views.");
        } else {
+         fill(background);
+         stroke(background);
+         rect(map.X, map.Y, map.wid, map.hig);
        image = get(0,100,800,400);
        Collections.sort(availableSlots);
        int slot = availableSlots.get(0);

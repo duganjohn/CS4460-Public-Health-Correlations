@@ -57,8 +57,7 @@ void setup(){
   heightH = 720;
   widthW = 1200;
   size(widthW,heightH);
-  background = white;
-  background(background);
+  background = lighterGray;
   noStroke();
   
   // --- Text Setup ----

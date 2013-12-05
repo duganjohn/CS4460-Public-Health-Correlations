@@ -8,6 +8,7 @@ public class Map{
   State clicked = null;
   String view;
   private int H = 100, S = 100, B = 100, minB = 0, maxB = 100;
+  private int wid = 200, hig = 80, X = 620, Y = 420;
   
   private ArrayList<State> stateList = new ArrayList<State>(50);
   // not exactly x and y
@@ -74,7 +75,7 @@ public class Map{
     //hardcode center if D.C.
      if(i == 8){
        centerX = 655;
-       centerY = 375;
+       centerY = 355;
      }     
        
        State aState = new State(state[i].getString("name"), state[i].getString("abb"), 
