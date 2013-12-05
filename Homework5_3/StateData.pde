@@ -61,9 +61,14 @@ public class StateData{
   }
  
  public void updateArray(){
+   
+     String healthProcessed = "$ "+this.healthExp;
+     if(this.healthExp==0){
+       healthProcessed = "n/a";
+     }
     this.doubles = new double[]{0, this.population, this.healthExp, this.noInsCoverage, this.insCoverage, this.medianIncome};
     this.items = new Object[]{this.name, this.population, this.healthExp, this.noInsCoverage, this.insCoverage, this.medianIncome};
-    this.display = new String[]{this.name, ""+this.population, "$ "+this.healthExp, this.noInsCoverage+" %", this.insCoverage+" %", "$ "+this.medianIncome};
+    this.display = new String[]{this.name, ""+this.population, healthProcessed, this.noInsCoverage+" %", this.insCoverage+" %", "$ "+this.medianIncome};
     
     
     

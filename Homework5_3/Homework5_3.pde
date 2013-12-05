@@ -24,7 +24,7 @@ ControlP5 cp5;
 XlsReader reader;
       
 color[] typeColor;
-color blue, green, purple, orange, magenta, red, lightGray, black, white, darkGray, lighterGray;
+color blue, green, purple, orange, magenta, red, lightGray, black, white, darkGray, lighterGray, gray;
 
 
 
@@ -38,13 +38,14 @@ void setup(){
   reader.firstRow();
   
   // --- Colors Setup ----
-  blue = color(55,76,100); 
+  blue = color(65,86,100); 
   green = color(24,100,100); 
   purple = color(77,80,100);
   orange = color(9,100,100);
   magenta = color(90,80,100);
   red = color(100,83,100);
   lightGray = color(80);
+  gray = color(70);
   lighterGray = color(90);
   darkGray = color(40);
   black = color(0);
