@@ -21,7 +21,7 @@ public class Button extends java.awt.Rectangle {
       this.text = text;
       this.w = w;
       this.h = h;
-      this.col = color(0,0,66);
+      this.col = gray;
     }
     
     //used for delete buttons on the map snapshots
@@ -30,7 +30,11 @@ public class Button extends java.awt.Rectangle {
       this.index = index;
       
     }
-   
+    
+    public void setColor(color col){
+     this.col = col;
+    }   
+    
     void draw() {
       if (isHidden) {
         fill(white);

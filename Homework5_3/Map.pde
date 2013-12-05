@@ -13,6 +13,8 @@ public class Map{
   float size;
   float gradientActive;
   
+  
+  
   int average = 0;
   
   private ArrayList<State> stateList = new ArrayList<State>(50);
@@ -34,6 +36,8 @@ public class Map{
 
     int scaleX = (int)(6*size);
     int scaleY = (int)(-7*size);
+    
+    relative = 1;
     
    int stateLength = 51;
     //Hawaii and Alaska are on a different scale
@@ -199,17 +203,18 @@ public class Map{
   }
   
   void changeAllColors(float gradient){   
+   
      view = typeName[(int)gradient];
      if(gradient==1){
        H = 5;
        S = 100;
      }
      else if(gradient==2){
-       H = 70;
+       H = 30;
        S = 60;
      }
      else if(gradient==3){
-       H = 60;
+       H = 20;
        S = 80;
      }
      else if(gradient==4){
@@ -220,20 +225,25 @@ public class Map{
        H = 80;
        S = 90;
      }
-     //float max = -1;
-     //float min = 900000000;
-     /*for(State st: stateList){
-       float num = st.getStateData().getNumFormat()[(int)gradient-1];
-         if(num>max){
-           max = num;
-         }
-         else if(num<min){
-           min = num;
-         }
-     }*/
-     
-     int min = minMaxFixed[ (int)(2*(gradient)) ];
-     int max = minMaxFixed[ (int)(2*(gradient))+1 ];
+    
+     int max = -1;
+     int min = 900000000;
+     if(relative==0){
+        min = minMaxFixed[ (int)(2*(gradient)) ];
+        max = minMaxFixed[ (int)(2*(gradient))+1 ];
+     }
+     else{
+       
+       for(State st: stateList){
+         int num = (int)st.getStateData().getNumFormat()[(int)gradient-1];
+           if(num>max){
+             max = num;
+           }
+           else if(num<min){
+             min = num;
+           }
+       }
+     }
      //println(min + " " + max);
    
      int i = 0;
@@ -242,12 +252,12 @@ public class Map{
          average+=num;
          i++;
          B = getBrightness(gradient,  min,  max,  num);         
-         /*if(B>maxB){
+         if(B>maxB){
            maxB = B;
          }
          else if(B<minB){
            minB = B;
-         }*/
+         }
           st.setColor(H,S,B);
         }
        
@@ -265,8 +275,8 @@ public class Map{
          if (gradient==1){
            B= (int)(B*.75 +25);
          }
-         else if(gradient==2){
-           B= (int)(B*.75 +25);
+         else if(gradient==2 && relative==0){
+           B= (int)(B*.75);
          }
          
          return B;
@@ -483,20 +493,27 @@ public class Map{
   public double[] minMax() {
     double[] minMax = new double[4];
     
-    //for (int i = 0; i < 6; i++) {
-    //  if(gradientActive == i){
-        /* minMax[0] = stateList.get(0).data.doubles[i];
-         minMax[1] = stateList.get(0).data.doubles[i];
-         minMax[2] = 100;
-         minMax[3] = 0;
-         
-        // Iterate through states
-        for(State st: stateList){
-           if(st.data.doubles[i] < minMax[0]) minMax[0] = st.data.doubles[i];
-           if(st.data.doubles[i] > minMax[1]) minMax[1] = st.data.doubles[i];
-           if(st.brightness < minMax[2]) minMax[2] = st.brightness;
-           if(st.brightness > minMax[3]) minMax[3] = st.brightness;*/
-       if(gradientActive != 0){   
+      if(relative==1){
+       for (int i = 0; i < 6; i++) {
+          if( gradientActive == i){
+             minMax[0] = stateList.get(0).data.doubles[i];
+             minMax[1] = stateList.get(0).data.doubles[i];
+             minMax[2] = 100;
+             minMax[3] = 0;
+             
+            // Iterate through states
+            for(State st: stateList){
+               if(st.data.doubles[i] < minMax[0]) minMax[0] = st.data.doubles[i];
+               if(st.data.doubles[i] > minMax[1]) minMax[1] = st.data.doubles[i];
+               if(st.brightness < minMax[2]) minMax[2] = st.brightness;
+               if(st.brightness > minMax[3]) minMax[3] = st.brightness;
+            }
+          }
+       }
+      }
+      
+      
+      else if(relative==0 && gradientActive != 0){   
          
            int min =  minMaxFixed[(int)gradientActive*2];
            int max =  minMaxFixed[2*(int)gradientActive+1];
@@ -507,8 +524,7 @@ public class Map{
            double[] temp = { min, max, minBrightness, maxBrightness };
            minMax = temp;
         }    
-    //  }
-    //}
+
   
     return minMax;
   }

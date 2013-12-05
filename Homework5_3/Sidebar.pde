@@ -27,7 +27,7 @@ public class Sidebar {
     fill(gray);
     strokeWeight(3);
     noStroke();
-    rect(x, y, widthRec, heightH*.7-100);
+    rect(x, y, widthRec, heightH*.7-90);
     
     // Creates the title
     /*fill(darkGray);
@@ -39,7 +39,7 @@ public class Sidebar {
     fill(darkGray);
     textFont(font36, 32);
     textAlign(CENTER);
-    text((int)years+"", x + widthRec/2, y*2.1+20);  
+    text((int)years+"", x + widthRec/2, y*2.1+14);  
     
     // Creates the label
     textSize(18);
@@ -53,14 +53,14 @@ public class Sidebar {
     textAlign(CENTER);
     text("State", x + widthW*.13, relY);
     fill(white);
-    rect(x, y*2+40, widthW*.26, 2);
+    rect(x, y*2+31, widthW*.26, 2);
    
    
     for (int i = 1; i < typeName.length; i++) {
       fill(darkGray);
       text(typeName[i], x + widthW*.13, relY+lineSpacing*i);
       fill(white);
-      rect(x, relY+lineSpacing*(i)+30, widthW*.26, 2);
+      rect(x, relY+lineSpacing*(i-1)+30, widthW*.26, 2);
     }
     
     // Highlighted state information
@@ -71,7 +71,7 @@ public class Sidebar {
       for (int i = 0; i < map.highlighted.data.display.length; i++)
         if(map.highlighted.data.display[i] != null) {
           if (map.clicked != null && map.clicked.data.doubles != null && map.highlighted.data.doubles[i] > map.clicked.data.doubles[i]) textSize(30);
-          text(map.highlighted.data.display[i], x + widthW*.12, relY+lineSpacing*i+20);
+          text(map.highlighted.data.display[i], x + widthW*.12, relY+lineSpacing*i+16);
           textSize(18);
         }
 
@@ -84,7 +84,7 @@ public class Sidebar {
       for (int i = 0; i < map.clicked.data.display.length; i++)
         if(map.clicked.data.display[i] != null) {
           if (map.highlighted != null && map.highlighted.data.doubles != null && map.clicked.data.doubles[i] > map.highlighted.data.doubles[i]) textSize(30);
-          text(map.clicked.data.display[i], x + widthW*.14, relY+lineSpacing*i+20);
+          text(map.clicked.data.display[i], x + widthW*.14, relY+lineSpacing*i+16);
           textSize(18);
         }
 

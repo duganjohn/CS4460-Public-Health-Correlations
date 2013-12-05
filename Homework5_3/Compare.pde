@@ -55,13 +55,13 @@ public class Compare{
     float size = 1.5;
     int relX = 1170;
     int relY = 780;
-    int relXAlaska = 200;
-    int relYAlaska = 200;
-    int relXHawaii = 20;
-    int relYHawaii = 20;
+    int relXAlaska = 600;
+    int relYAlaska = 770;
+    int relXHawaii = 100;
+    int relYHawaii = 770;
     
     map1 = new Map( size, relX, relY,  relXAlaska,  relYAlaska,  relXHawaii,  relYHawaii, x+dropdownW/4, y+30);
-    map2 = new Map( size, relX + 600,  relY,  relXAlaska + 100,  relYAlaska,  relXHawaii,  relYHawaii+ 300, x+dropdownW/4+560, y+30);
+    map2 = new Map( size, relX + 600,  relY,  relXAlaska + 600,  relYAlaska,  relXHawaii,  relYHawaii+ 300, x+dropdownW/4+560, y+30);
   }
   
   void changeMap(int mapIndex, int snapshotIndex){
