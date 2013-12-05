@@ -14,10 +14,16 @@ public class Dropdown {
       ddl = cp5.addDropdownList(name);
       ddl.setPosition(X, Y);
       ddl.setBackgroundColor(black); 
-      ddl.setColorBackground(lightGray); 
+      ddl.setColorBackground(darkGray); 
+      ddl.setColorLabel(white); 
       ddl.setSize(wid, hig);
-      ddl.setBarHeight(14);    
-      ddl.setItemHeight(14);   
+ 
+      ddl.setItemHeight(20);
+      ddl.setBarHeight(20);
+      ddl.captionLabel().style().marginTop = 3;
+      ddl.captionLabel().style().marginLeft = 3;
+      ddl.valueLabel().style().marginTop = 3;
+      ddl.valueLabel().style().marginBottom = 3;
     }
   
   // Currently just returns first item in list
@@ -32,7 +38,14 @@ public class Dropdown {
   void setIndex(int n) {
     ddl.setIndex(n);
   }
+  
+  void setVisible(boolean bool){
+     ddl.setVisible(bool);
+  }
     
+  void clear(){
+     ddl.clear();
+  }
 //--Control Event Function Moved to Main.
 //--Only works there
 

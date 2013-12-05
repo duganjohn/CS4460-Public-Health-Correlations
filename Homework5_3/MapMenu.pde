@@ -7,6 +7,8 @@ public class MapMenu{
   Map map;
   private ArrayList<Snapshot> snapshots = new ArrayList<Snapshot>();
   Button saveButton;
+  Button compareButton;
+  Button relativeButton;
   ArrayList<Button> deleteButtons = new ArrayList<Button>();
   int y, x;
   int numberOfSnapshots;
@@ -17,7 +19,11 @@ public class MapMenu{
     this.map = map;
     this.y =y;
     this.x =x;
-    saveButton = new Button("Save This View", 650, y, 150, 40);
+    relativeButton = new Button("Relative Data", 650, y, 150, 40);
+    saveButton = new Button("Save This View", 820, y, 150, 40);
+    compareButton = new Button("Compare View", 1020, y, 150, 40,purple,1);
+    
+    
     cp5.addSlider("years")
        .setPosition(40, y)
        .setWidth(500)
@@ -42,6 +48,8 @@ public class MapMenu{
   //draws the save button, all snapshots, and all deletebuttons.
   public void draw(){
     saveButton.draw();
+    compareButton.draw();
+    relativeButton.draw();
     for (Snapshot aSnapshot : snapshots){
       aSnapshot.draw();
     }
@@ -51,10 +59,27 @@ public class MapMenu{
     }
   }
   
+  public void toggleSlider(boolean bool){
+     cp5.getController("years").setVisible(bool);
+  }
+  
+  
   public void mousePressed(){
      int deleteIndex = 0;
      boolean deleted = false;
      PImage image;
+     
+     if (compareButton.pressed()) {
+       compare.activate(snapshots);
+     }
+     else if (relativeButton.pressed()) {
+       color[] colArray = {gray, darkGray};
+       relative^=1;
+       relativeButton.setColor(colArray[relative]);
+       if(gradientCheck!=0)
+       map.changeAllColors(gradientCheck);
+       
+     }
      
      //adds the screenshot if the save button is pressed
      if (saveButton.pressed()) {

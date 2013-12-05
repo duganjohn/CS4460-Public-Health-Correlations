@@ -4,6 +4,7 @@ import de.bezier.data.*; //Xlsreader library
 public Map map;
 public MapMenu mapmenu;
 public Sidebar sidebar;
+public Compare compare;
 
 public static color background;
 
@@ -13,6 +14,7 @@ public static Draw draw;
 
 public static int filterOn;
 public float years;
+public int relative;
 
 private int widthW;
 private int heightH;
@@ -23,7 +25,7 @@ ControlP5 cp5;
 XlsReader reader;
       
 color[] typeColor;
-color blue, green, purple, orange, magenta, red, lightGray, black, white, darkGray, lighterGray;
+color blue, green, purple, orange, magenta, red, lightGray, black, white, darkGray, lighterGray, gray;
 
 
 
@@ -37,17 +39,18 @@ void setup(){
   reader.firstRow();
   
   // --- Colors Setup ----
-  blue = color(55,76,100); 
+  blue = color(65,86,100); 
   green = color(24,100,100); 
   purple = color(77,80,100);
   orange = color(9,100,100);
   magenta = color(90,80,100);
   red = color(100,83,100);
   lightGray = color(80);
+  gray = color(70);
   lighterGray = color(90);
   darkGray = color(40);
   black = color(0);
-  white = color(100);
+  white = color(0,0,100);
   color[] typeColorTemp = {blue,green,purple,orange, magenta,red};
   typeColor= typeColorTemp;
   
@@ -71,6 +74,7 @@ void setup(){
   map = new Map();
   sidebar = new Sidebar();
   mapmenu = new MapMenu(map, 0,heightH-200);
+  compare = new Compare();
 
 }
 
@@ -90,10 +94,14 @@ void fontLoad(){
 */
 void mouseMoved(){
   
-  //if (draw.within(10,150,720,800)){
-      map.mouseMoved();
-  //}
- 
+if(!compare.compareViewOn){
+    if (draw.within(10,150,720,800)){
+        map.mouseMoved();
+    }
+  }
+  else{
+    compare.mouseMoved();
+  }
 
 }
 
@@ -105,9 +113,18 @@ void mouseMoved(){
 void mousePressed(){
   
   // --- Mouse is pressed on Map ----
-  map.mousePressed();
-  mapmenu.mousePressed();
-  draw.draw();
+  //map.mousePressed();
+  //mapmenu.mousePressed();
+  //draw.draw();
+  
+  if(!compare.compareViewOn){
+    map.mousePressed();
+    mapmenu.mousePressed();
+  }
+  else{
+    compare.mousePressed();
+  }
+  
 }
 
 
@@ -136,6 +153,14 @@ void controlEvent(ControlEvent theEvent) {
         gradientCheck = theEvent.getGroup().getValue();
         map.setView(gradientCheck);
       }
+    }
+    else if(theEvent.isGroup() && theEvent.group().name() == "Compare1") {
+      compare.changeMap(0, (int)theEvent.getGroup().getValue() );
+ 
+    }
+    else if(theEvent.isGroup() && theEvent.group().name() == "Compare2") {
+      compare.changeMap(1, (int)theEvent.getGroup().getValue() );
+ 
     }
     else if(theEvent.isController()){
       if(theEvent.controller().name()=="years"){

@@ -52,6 +52,9 @@ public class State{
   
   //Overriding of color. If gradient is turned on
   public void setColor(int H, int S, int B){
+
+      H += (int)(B*.2);
+      //S += (int)(B*.5);
     stateColor = color(H, S, B);
     brightness = B;
   }
@@ -71,9 +74,8 @@ public class State{
     return highlight;
   }
   
-  public State draw(){
+  public State draw(color col){
     State ret = null;
-    drawName();
       if (brushing){
         fill(brushingColor);
         strokeWeight(3);
@@ -92,15 +94,16 @@ public class State{
       
     
     polygon.draw(); 
-    drawName();
+    drawName(col);
     return ret;
   }
   
-  public void drawName(){
+  public void drawName(color col){
      //-- Draw Names of State
+     fill(col);
     textFont(font14, 14);
     textAlign(CENTER,CENTER);
-    fill(0);
+    
     text(abb, centerX, centerY);
   }
   
