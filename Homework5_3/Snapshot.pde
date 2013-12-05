@@ -73,6 +73,11 @@ public class Snapshot{
   public float getGradientNumber() {
     return gradientNumber;
   }
+  
+  public String getGradientLabel(){
+    return gradientLabel;
+  }
+
 
   //the snapshot can be pressed
   public boolean pressed(){

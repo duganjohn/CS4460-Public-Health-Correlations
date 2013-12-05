@@ -5,9 +5,9 @@ public class Sidebar {
   float x = widthW*.7;
   float y = heightH*.12;
   int myColorBackground = color(white);
-
+  Dropdown vars;
   public Sidebar() {
-    Dropdown vars = new Dropdown("Variables", x + 120, y + 80, 216, 500);
+     vars = new Dropdown("Variables", x + 120, y + 80, 216, 500);
     
     // Add Items
     vars.addItem("None",0);
@@ -15,17 +15,21 @@ public class Sidebar {
       vars.addItem(typeName[i],i);
       vars.setIndex(0);
    }
+   
+   public void toggleDropdown(boolean bool){
+     vars.setVisible(bool);
+   }
 
   public void drawSidebar() {
     // Creates the panel
     fill(darkGray);
     strokeWeight(3);
     noStroke();
-    rect(x, y, widthW*.3, heightH*.7-30);
+    rect(x, y, widthW*.3, heightH*.7-100);
     
     // Creates the title
     fill(white);
-    textFont(font36, 36);
+    textFont(font24, 24);
     textAlign(CENTER);
     text("Control Center", x + widthW*.15, y*1.4);  
     
@@ -39,17 +43,14 @@ public class Sidebar {
     textAlign(LEFT);
     text("Gradient:", x + 26, y + 77);
     
-    // Creates each rectangle
-    int boxWidth = (int)Math.round(widthW * .3);
-    int yBuff = (int)Math.round(y*.65);
     textSize(20);
     textAlign(CENTER);
     text("State", x + widthW*.15, y * 2.5+20);
     fill(white);
     rect(x, y*2+40, widthW*.3, 2);
     for (int i = 1; i < typeName.length; i++) {
-      text(typeName[i], x + boxWidth/2, y*3.05 + yBuff*i-20);
-      rect(x, y*2.75 + yBuff*i-20, boxWidth, 2);
+      text(typeName[i], x + widthW*.15, y*3 + y*.5*(i)-20);
+      rect(x, y*2.75 + y*(i)*.5-20, widthW*.3, 2);
     }
     
     // Highlighted state information
@@ -60,7 +61,7 @@ public class Sidebar {
       for (int i = 0; i < map.highlighted.data.display.length; i++)
         if(map.highlighted.data.display[i] != null) {
           if (map.clicked != null && map.clicked.data.doubles != null && map.highlighted.data.doubles[i] > map.clicked.data.doubles[i]) textSize(30);
-          text(map.highlighted.data.display[i], x + widthW*.14, y*2.7 + i*yBuff + yBuff-20);
+          text(map.highlighted.data.display[i], x + widthW*.14, y*2.7 + i*.5*y+24);
           textSize(18);
         }
 
@@ -73,9 +74,10 @@ public class Sidebar {
       for (int i = 0; i < map.clicked.data.display.length; i++)
         if(map.clicked.data.display[i] != null) {
           if (map.highlighted != null && map.highlighted.data.doubles != null && map.clicked.data.doubles[i] > map.highlighted.data.doubles[i]) textSize(30);
-          text(map.clicked.data.display[i], x + widthW*.16, y*2.7+ i*yBuff + yBuff-20);
+          text(map.clicked.data.display[i], x + widthW*.16, y*2.7+ i*.5*y+24);
           textSize(18);
         }
+
   }
 }
 

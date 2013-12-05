@@ -7,6 +7,13 @@ public class Button extends java.awt.Rectangle {
     String text;
     int index;
     boolean isHidden = false;
+    color col;
+    
+    /*overload*/
+    public Button(String text, int x, int y, int w, int h, color col, int nothing) {
+      this (text,  x,  y,  w,  h);
+      this.col = col;
+    }
     
     public Button(String text, int x,int y, int w, int h) {
       //call the java.awt.Polygon constructor
@@ -14,16 +21,14 @@ public class Button extends java.awt.Rectangle {
       this.text = text;
       this.w = w;
       this.h = h;
-      
+      this.col = color(0,0,66);
     }
     
     //used for delete buttons on the map snapshots
     public Button(String text, int x, int y, int w, int h, int index) {
-      super(x, y, w,h);
-      this.text = text;
-      this.w = w;
-      this.h = h;
+      this (text,  x,  y,  w,  h);
       this.index = index;
+      
     }
    
     void draw() {
@@ -31,7 +36,7 @@ public class Button extends java.awt.Rectangle {
         fill(white);
         stroke(white);
       } else {
-      fill(66); 
+      fill(col); 
       noStroke();
       rect(x,y,w,h);
       fill(black); 

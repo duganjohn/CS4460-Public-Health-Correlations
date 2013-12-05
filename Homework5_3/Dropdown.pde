@@ -32,7 +32,14 @@ public class Dropdown {
   void setIndex(int n) {
     ddl.setIndex(n);
   }
+  
+  void setVisible(boolean bool){
+     ddl.setVisible(bool);
+  }
     
+  void clear(){
+     ddl.clear();
+  }
 //--Control Event Function Moved to Main.
 //--Only works there
 

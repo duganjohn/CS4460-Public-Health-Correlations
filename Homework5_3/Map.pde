@@ -9,34 +9,40 @@ public class Map{
   String view;
   private int H = 100, S = 100, B = 100, minB = 0, maxB = 100;
   private int wid = 200, hig = 80, X = 620, Y = 420;
+  int legendX, legendY;
+  float size;
+  float gradientActive;
   
   private ArrayList<State> stateList = new ArrayList<State>(50);
   // not exactly x and y
   
   XML xml;
   
-  public Map(){ 
+ public Map(){ 
+    this(2, 1550, 800, 700, 800, 2400, 700, 620, 400);
+  }
+  
+  public Map(float size, int relX, int relY, int relXAlaska, int relYAlaska, int relXHawaii, int relYHawaii, int legendX, int legendY){
+   this.legendX = legendX;
+   this.legendY= legendY;
+   this.size = size;
     
-    xml = loadXML("statesCoord.xml");
-    //JSONArray stateData = loadJSONArray("map.json");
-    
+    xml = loadXML("statesCoord.xml");    
     XML[] state = xml.getChildren("state");
-    
-    int relX = 1550;
-    int relY = 850;
-    int scaleX = 12;
-    int scaleY = -15;
+
+    int scaleX = (int)(6*size);
+    int scaleY = (int)(-7*size);
     
    int stateLength = 51;
     //Hawaii and Alaska are on a different scale
     for(int i=0; i<stateLength; i++){
       if(i==1){
         //make Alaska
-        makeState(state, 1, 700, 800, 4, -6);
+        makeState(state, 1, relXAlaska, relYAlaska, (int)(2*size), (int)(-3*size));
       }
       else if(i==11){
         //make Hawaii
-         makeState(state, i, 2260, 700, 13, -13);
+         makeState(state, i, relXHawaii, relYHawaii, (int)(7*size), (int)(-7*size));
       }
       else{
         makeState(state, i, relX, relY, scaleX, scaleY);
@@ -45,9 +51,10 @@ public class Map{
  
      
     for (State st: stateList){
-      st.draw();
+      st.draw(black);
     }  
   }
+ 
  
   
   /*
@@ -74,8 +81,8 @@ public class Map{
   
     //hardcode center if D.C.
      if(i == 8){
-       centerX = 655;
-       centerY = 355;
+       centerX = (int)(centerX+16*size);
+       centerY = (int)(centerY+41*size);
      }     
        
        State aState = new State(state[i].getString("name"), state[i].getString("abb"), 
@@ -155,6 +162,11 @@ public class Map{
       myState.setBrushing(true);
     }
   }
+
+ public String getView(){
+   return view;
+ }
+ 
   
   // --- What Parameter is being looked at ----
   //@param gradient The index of variable to change color to
@@ -164,113 +176,8 @@ public class Map{
   // 3 = percent uninsured
   // 4 = percent insured
   // 5 = household income
-  /*public void setView(float gradient){
-      if (gradient==0){
-        view = "None";
-        for(State st: stateList){
-        //creates random color
-        st.createColor();
-        }
-      }
-      if(gradient == 1){
-         view = "Population";
-         //go through every state and find the min and max value;
-         //give a hue
-         //change color hue for all states
-         double max = stateList.get(0).data.doubles[1];
-         double min = stateList.get(0).data.doubles[1];
-        for(State st: stateList){
-           if(st.data.doubles[1]<min)
-             min = st.data.doubles[1];
-           if(st.data.doubles[1]>max)
-             max = st.data.doubles[1];
-           //st.setColor(0,0,0); //setColor
-        }
-        colorMode(HSB,360,100,(int)max);
-        for(State st:stateList){
-          st.setColor(25, 100, (int)(st.data.doubles[1]*5));
-        }
-    }
-    if(gradient == 2){
-         view = "Health Expenditures";
-         double max = stateList.get(0).data.doubles[2];
-         double min = stateList.get(0).data.doubles[2];
-        for(State st: stateList){
-           if(st.data.doubles[2]<min)
-             min = st.data.doubles[2];
-           if(st.data.doubles[2]>max)
-             max = st.data.doubles[2];
-        }
-        colorMode(HSB,360,100,(int)max);
-        for(State st:stateList){
-          st.setColor(80, 100, (int)(st.data.doubles[2]*1.05));
-        }
-    
-    }
-    
-    if(gradient == 3){
-        view = "Percent Uninsured";
-         double max = stateList.get(0).data.doubles[3];
-         double min = stateList.get(0).data.doubles[3];
-        for(State st: stateList){
-           if(st.data.doubles[3]<min)
-             min = st.data.doubles[3];
-           if(st.data.doubles[3]>max)
-             max = st.data.doubles[3];
-           //st.setColor(0,0,0); //setColor
-        }
-        colorMode(HSB,360,100,(int)max);
-        for(State st:stateList){
-          st.setColor(220, 100, (int)st.data.doubles[3]);
-        }
-    
-    }
-    if(gradient == 4){
-    
-        view = "Percent Insured";
-         double max = stateList.get(0).data.doubles[4];
-         double min = stateList.get(0).data.doubles[4];
-        for(State st: stateList){
-           if(st.data.doubles[4]<min)
-             min = st.data.doubles[4];
-           if(st.data.doubles[4]>max)
-             max = st.data.doubles[4];
-           //st.setColor(0,0,0); //setColor
-        }
-        colorMode(HSB,360,100,(int)max);
-        for(State st:stateList){
-          st.setColor(150, 100, (int)st.data.doubles[4]);
-        }
-    }
-    if(gradient == 5){
-        view = "Median Income";
-         double max = stateList.get(0).data.doubles[5];
-         double min = stateList.get(0).data.doubles[5];
-        for(State st: stateList){
-           if(st.data.doubles[5]<min)
-             min = st.data.doubles[5];
-           if(st.data.doubles[5]>max)
-             max = st.data.doubles[5];
-           //st.setColor(0,0,0); //setColor
-        }
-        colorMode(HSB,360,100,(int)max);
-        for(State st:stateList){
-          st.setColor(300, 100, (int)st.data.doubles[5]);
-        }
-    }
- //}
- */
- 
- public String getView(){
-   return view;
- }
- 
-  // --- What Parameter is being looked at ----
-  //@param gradient The index of variable to change color to
-  // 0 = None
-  // 1 = Population
-  //needs to also get triggered when year changes
   public void setView(float gradient){
+      gradientActive = gradient;
       view = typeName[(int)gradient];
       if (gradient==0){
         //creates random color
@@ -292,24 +199,24 @@ public class Map{
   void changeAllColors(float gradient){   
      view = typeName[(int)gradient];
      if(gradient==1){
-       H = 10;
+       H = 5;
        S = 100;
      }
      else if(gradient==2){
-       H = 40;
+       H = 30;
        S = 80;
      }
      else if(gradient==3){
-       H = 60;
+       H = 55;
        S = 80;
      }
      else if(gradient==4){
-       H = 80;
+       H = 70;
        S = 80;
      }
      else{
-       H = 100;
-       S = 80;
+       H = 80;
+       S = 90;
      }
      float max = -1;
      float min = 900000000;
@@ -339,7 +246,8 @@ public class Map{
          else{
            B= (int)(B*.75 +25);
          }
-         st.setColor(H,S,B);
+
+         
          
          if(B>maxB){
            maxB = B;
@@ -347,7 +255,10 @@ public class Map{
          else if(B<minB){
            minB = B;
          }
+          st.setColor(H,S,B);
         }
+        
+       
   }
  
   
@@ -379,7 +290,7 @@ public class Map{
         break;
       }
     }
-    drawMap();
+    
     
     return retMe;
   }
@@ -402,7 +313,6 @@ public class Map{
         break;
       }
     }
-    drawMap();
     
     return retMe;
   }
@@ -416,14 +326,18 @@ public class Map{
   * drawn.
   */
  public void drawMap(){
+   color textColor = white;
+   if (gradientActive==0){
+      textColor = black;
+    }
     for (State st: stateList){
-      if(st.draw()!=null){
+      if(st.draw(textColor)!=null){
         highlighted = st;
       }
     } 
     
     if(highlighted!=null){
-      highlighted.draw();
+      highlighted.draw(textColor);
       drawStateData(highlighted, mouseX, mouseY);
       //currentHighlight = highlighted;
     }
@@ -446,20 +360,20 @@ public class Map{
     textSize(14);
     text(st.name, x , marginTop + y + hig *2 / 10);
     String detail = "";
-    if(gradientCheck==1){
+    if(gradientActive==1){
       text("Population:  "+st.data.population ,x,  marginTop +  y + hig * 4 / 10);
     
     }
-    if(gradientCheck==2){
+    if(gradientActive==2){
       text("Health Expenditures:  "+st.data.healthExp,x,  marginTop +  y + hig * 4 / 10);
     }
-    if(gradientCheck==3){
+    if(gradientActive==3){
       text("Uninsured:  "+ st.data.noInsCoverage,x,  marginTop +  y + hig * 4 / 10);
     }
-    if(gradientCheck==4){
+    if(gradientActive==4){
       text(st.data.insCoverage,x,  marginTop +  y + hig * 4 / 10);
     }
-    if(gradientCheck==5){
+    if(gradientActive==5){
       text(st.data.medianIncome,x,  marginTop +  y + hig * 4 / 10);
     }
    // text("Population:      " + st.data.population, x , marginTop +  y + hig * 4 / 10);
@@ -469,26 +383,28 @@ public class Map{
    * Creates the legend for the map
    */   
   public void drawLegend() {
-    if(gradientCheck!=0) {
+    if(gradientActive!=0) {
       int wid = 200, hig = 80;
-      int X = 620, Y = 420;
+      int X = legendX;
+      int Y = legendY;
       int marginTop = 20;
       String tex = "Legend";
       double[] minMax = minMax();
       fill(lightGray);
-      stroke(black);
-      strokeWeight(2);
+      noStroke();
       rect(X, Y, wid, hig);
       fill(black);
       textAlign(CENTER, CENTER);
-      textSize(18);
+      textSize(16);
       
       // Determine legend type
-      if(gradientCheck==1) tex = "Population";
-      if(gradientCheck==2) tex = "Health Expenditures";
-      if(gradientCheck==3) tex = "Uninsured";
-      if(gradientCheck==4) tex = "Insured";
-      if(gradientCheck==5) tex = "Median Income";
+      
+      tex = typeName[(int)gradientActive];
+      /*if(gradientActive==1) tex = "Population";
+      if(gradientActive==2) tex = "Health Expenditures";
+      if(gradientActive==3) tex = "Uninsured";
+      if(gradientActive==4) tex = "Insured";
+      if(gradientActive==5) tex = "Median Income";*/
       
       // Create Title Text
       text(tex, X + wid/2, Y + 12);
@@ -505,9 +421,15 @@ public class Map{
       // Create gradient
       noFill();
       colorMode(HSB,100);
+      int minB = (int)minMax[2];
+      int maxB = (int)minMax[3];
       for (int i = X + 15; i <= X + wid - 15; i++) {
         float inter = map(i, X + 15, X + wid - 15, 0, 1);
-        stroke(color(H, S, (int)Math.round(minMax[2]) * (1-inter) + (int)Math.round(minMax[3]) * inter));    // interpolate between colors on scale
+        int B = (int)(Math.round(minMax[2]) * (1-inter) + Math.round(minMax[3]) * inter);
+       
+        int H2 = H+(int)(B*.2);
+ 
+        stroke(color(H2, S, B));    // interpolate between colors on scale
         strokeWeight(20);
         line(i, Y + 60, i, Y + 60);
       }
@@ -528,7 +450,7 @@ public class Map{
     double[] minMax = new double[4];
     
     for (int i = 0; i < 6; i++) {
-      if(gradientCheck == i){
+      if(gradientActive == i){
          minMax[0] = stateList.get(0).data.doubles[i];
          minMax[1] = stateList.get(0).data.doubles[i];
          minMax[2] = 100;
