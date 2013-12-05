@@ -24,7 +24,8 @@ public class Sidebar {
 
   public void drawSidebar() {
     // Creates the panel
-    fill(gray);
+    color textColor = white;
+    fill(color(30));
     strokeWeight(3);
     noStroke();
     rect(x, y, widthRec, heightH*.7-90);
@@ -36,7 +37,7 @@ public class Sidebar {
     text("Control Center", x + widthW*.13, y*1.4);  
     */
     // Creates the year label
-    fill(darkGray);
+    fill(textColor);
     textFont(font36, 32);
     textAlign(CENTER);
     text((int)years+"", x + widthRec/2, y*2.1+14);  
@@ -57,7 +58,7 @@ public class Sidebar {
    
    
     for (int i = 1; i < typeName.length; i++) {
-      fill(darkGray);
+      fill(textColor);
       text(typeName[i], x + widthW*.13, relY+lineSpacing*i);
       fill(white);
       rect(x, relY+lineSpacing*(i-1)+30, widthW*.26, 2);
@@ -65,7 +66,7 @@ public class Sidebar {
     
     // Highlighted state information
     textSize(18);
-    fill(purple);
+    fill(blue);
     textAlign(RIGHT,CENTER);
     if (map.highlighted !=  null)
       for (int i = 0; i < map.highlighted.data.display.length; i++)

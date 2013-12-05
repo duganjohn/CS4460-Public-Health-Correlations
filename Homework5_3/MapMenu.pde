@@ -74,8 +74,8 @@ public class MapMenu{
      }
      else if (relativeButton.pressed()) {
        color[] colArray = {gray, darkGray};
-       relative^=1;
-       relativeButton.setColor(colArray[relative]);
+       map.toggleRelative();
+       relativeButton.setColor(colArray[map.relative]);
        if(gradientCheck!=0)
        map.changeAllColors(gradientCheck);
        

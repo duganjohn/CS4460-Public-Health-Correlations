@@ -14,7 +14,7 @@ public static Draw draw;
 
 public static int filterOn;
 public float years;
-public int relative;
+
 
 private int widthW;
 private int heightH;

@@ -12,7 +12,7 @@ public class Map{
   int legendX, legendY;
   float size;
   float gradientActive;
-  
+  int relative = 1;
   
   
   int average = 0;
@@ -21,6 +21,10 @@ public class Map{
   // not exactly x and y
   
   XML xml;
+  
+  public void toggleRelative(){
+    relative^=1;
+  }
   
  public Map(){ 
     this(2, 1550, 800, 700, 800, 2400, 700, 620, 400);
