@@ -54,7 +54,7 @@ public class State{
   public void setColor(int H, int S, int B){
 
       H += (int)(B*.2);
-      S += (int)(B*.2);
+      //S += (int)(B*.5);
     stateColor = color(H, S, B);
     brightness = B;
   }

@@ -8,7 +8,7 @@ public class Compare{
   Button close;
   ArrayList<Snapshot> snapshots;
   int x = 130;
-  int y = 160;
+  int y = 120;
   int dropdownW = 300;
   int top = 90;
   

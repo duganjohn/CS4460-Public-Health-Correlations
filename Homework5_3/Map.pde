@@ -13,6 +13,8 @@ public class Map{
   float size;
   float gradientActive;
   
+  int average = 0;
+  
   private ArrayList<State> stateList = new ArrayList<State>(50);
   // not exactly x and y
   
@@ -203,11 +205,11 @@ public class Map{
        S = 100;
      }
      else if(gradient==2){
-       H = 30;
-       S = 80;
+       H = 70;
+       S = 60;
      }
      else if(gradient==3){
-       H = 55;
+       H = 60;
        S = 80;
      }
      else if(gradient==4){
@@ -218,9 +220,9 @@ public class Map{
        H = 80;
        S = 90;
      }
-     float max = -1;
-     float min = 900000000;
-     for(State st: stateList){
+     //float max = -1;
+     //float min = 900000000;
+     /*for(State st: stateList){
        float num = st.getStateData().getNumFormat()[(int)gradient-1];
          if(num>max){
            max = num;
@@ -228,37 +230,47 @@ public class Map{
          else if(num<min){
            min = num;
          }
-     }
+     }*/
      
+     int min = minMaxFixed[ (int)(2*(gradient)) ];
+     int max = minMaxFixed[ (int)(2*(gradient))+1 ];
      //println(min + " " + max);
    
+     int i = 0;
      for(State st: stateList){
          float num = st.getStateData().getNumFormat()[(int)gradient-1];
-         B = (int) ((num - min) / (max - min) * 100);
+         average+=num;
+         i++;
+         B = getBrightness(gradient,  min,  max,  num);         
+         /*if(B>maxB){
+           maxB = B;
+         }
+         else if(B<minB){
+           minB = B;
+         }*/
+          st.setColor(H,S,B);
+        }
+       
+       average/=i;
+       
+  }
+  
+  public int getBrightness(float gradient, int min, int max, float num){
+         int B = (int) ((num - min) / (max - min) * 100);
          
          if(num==0){
            B = 74;
          }
          //want to make sure B isn't too dark
          if (gradient==1){
-           B= (int)(B*.70 +30);
-         }
-         else{
            B= (int)(B*.75 +25);
          }
+         else if(gradient==2){
+           B= (int)(B*.75 +25);
+         }
+         
+         return B;
 
-         
-         
-         if(B>maxB){
-           maxB = B;
-         }
-         else if(B<minB){
-           minB = B;
-         }
-          st.setColor(H,S,B);
-        }
-        
-       
   }
  
   
@@ -384,7 +396,7 @@ public class Map{
    */   
   public void drawLegend() {
     if(gradientActive!=0) {
-      int wid = 200, hig = 80;
+      int wid = 200, hig = 110;
       int X = legendX;
       int Y = legendY;
       int marginTop = 20;
@@ -433,6 +445,23 @@ public class Map{
         strokeWeight(20);
         line(i, Y + 60, i, Y + 60);
       }
+          
+
+      fill(0);
+      textAlign(CENTER,CENTER);
+      textFont(font14,14);
+      
+      String textAvg = ""+average;
+      
+      if(gradientActive==2 || gradientActive==5){
+        textAvg = "$"+textAvg;
+      }
+      else if(gradientActive==3 || gradientActive==4){
+        textAvg = textAvg+"%";
+      }
+      
+      text("U.S. Average "+": "+textAvg,legendX+wid/2,legendY+hig-20);
+    
     }
  }
   
@@ -446,12 +475,17 @@ public class Map{
    *
    * @return array containing: min of type, max of type, min brightness, max brightness
    */
+   
+   
+   //An array of fixed values null, null, minPop, maxPop, minHealth, maxHealth, minUninsured, maxUninsured, minInsured...
+  int[] minMaxFixed = {0,0,479602 , 38041430, 2794, 6803, 4, 26, 74, 96, 36641, 77506};
+
   public double[] minMax() {
     double[] minMax = new double[4];
     
-    for (int i = 0; i < 6; i++) {
-      if(gradientActive == i){
-         minMax[0] = stateList.get(0).data.doubles[i];
+    //for (int i = 0; i < 6; i++) {
+    //  if(gradientActive == i){
+        /* minMax[0] = stateList.get(0).data.doubles[i];
          minMax[1] = stateList.get(0).data.doubles[i];
          minMax[2] = 100;
          minMax[3] = 0;
@@ -461,11 +495,22 @@ public class Map{
            if(st.data.doubles[i] < minMax[0]) minMax[0] = st.data.doubles[i];
            if(st.data.doubles[i] > minMax[1]) minMax[1] = st.data.doubles[i];
            if(st.brightness < minMax[2]) minMax[2] = st.brightness;
-           if(st.brightness > minMax[3]) minMax[3] = st.brightness;
+           if(st.brightness > minMax[3]) minMax[3] = st.brightness;*/
+       if(gradientActive != 0){   
+         
+           int min =  minMaxFixed[(int)gradientActive*2];
+           int max =  minMaxFixed[2*(int)gradientActive+1];
+           int minBrightness = getBrightness(gradientActive,  min,  max,  min);  
+           int maxBrightness = getBrightness(gradientActive,  min,  max,  max);  
+           
+           
+           double[] temp = { min, max, minBrightness, maxBrightness };
+           minMax = temp;
         }    
-      }
-    }
+    //  }
+    //}
   
     return minMax;
   }
+  
 }
