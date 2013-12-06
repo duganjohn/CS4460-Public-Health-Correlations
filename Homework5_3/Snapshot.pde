@@ -83,7 +83,7 @@ public class Snapshot{
   public boolean pressed(){
     boolean isPressed = false;
     if (mouseX >= x && mouseX < x+w) {
-      if (mouseY >= (y+10) && mouseY < (y+h)){
+      if (mouseY >= (y) && mouseY < (y+h)){
         isPressed = true;
       }
     }

@@ -17,7 +17,6 @@ public class Compare{
     
     menu1 = new Dropdown("Compare1", x, y , dropdownW, 350);
     menu2 = new Dropdown("Compare2", x + 560, y, dropdownW, 350);
-    print("hello");
     
     menu1.setVisible(false);
     menu2.setVisible(false); 
