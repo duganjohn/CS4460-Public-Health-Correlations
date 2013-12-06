@@ -99,13 +99,10 @@ public class MapMenu{
        //sort the available slots so we insert new images into the leftmost available slot
        Collections.sort(availableSlots);
        int slot = availableSlots.get(0);
-<<<<<<< HEAD
+
        snapshots.get(slot).setSnapshot(image, slot, (int)Math.round(cp5.getController("years").getValue()), map.getView(), map.getRelative()); 
-=======
-       //add the new snapshot
-       snapshots.get(slot).setSnapshot(image, slot, (int)Math.round(cp5.getController("years").getValue()), map.getView()); 
-       //add the proper delete button
->>>>>>> b5f1779e1767883d3e7924439608c2b94285768e
+
+      
        if (deleteButtons.size()<6){
          Button deleteButton = new Button("X",slot*200+190, heightH-130, 10,10, slot);
          deleteButtons.add(slot,deleteButton);
