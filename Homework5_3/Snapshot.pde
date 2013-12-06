@@ -55,12 +55,18 @@ public class Snapshot{
     }
   }
   
-  //changes the image
+   /* 
+  * Changes the image
+  * @param  newImage new image to replace old snapshot image
+  */
   public void setImage(PImage newImage) {
     image = newImage;
   }
   
-  //deletes the snapshot (makes it hidden)
+  /* 
+  * Deletes snapshot(hides it)
+  * @return  isPressed
+  */
   public void delete() {
     notHidden = false;
     draw();
@@ -91,19 +97,26 @@ public class Snapshot{
   }
   
  /* 
-  * Gets the gradienth label
-  * Returns  label
+  * Gets the gradient label
+  * @return  label
   */
   public String getGradientLabel(){
     return gradientLabel;
   }
   
+  /* 
+  * Gets whether the maps at this stage is in relative or absolute
+  * @return  relative (1 if yes, 0 if no)
+  */
   public int getRelative(){
     return relative;
   }
 
 
-  //the snapshot can be pressed
+  /* 
+  * Check whether snapshot is pressed
+  * @return  isPressed
+  */
   public boolean pressed(){
     boolean isPressed = false;
     if (mouseX >= x && mouseX < x+w) {

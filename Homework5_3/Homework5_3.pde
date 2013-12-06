@@ -129,11 +129,6 @@ void mousePressed(){
   
 }
 
-
-// --- Exists so Draw isn't called every time ----
-void redraw(){
-}
-
 /*
  * Creates the initial draw
  */
@@ -144,25 +139,33 @@ void draw(){
 float gradientCheck = 0.0;
 float yearCheck = years;
 
+/**
+ * Works with ControlP5 to receive events when user triggers
+ * sliders or dropdowns
+ */
 void controlEvent(ControlEvent theEvent) {
 
   // check if the Event was triggered from a ControlGroup
   if(theEvent.isGroup() && theEvent.group().name() == "Variables") {
-       
-      //---Only changes map if a different value is selected--//
+    
+    // if Dropdown List is Clicked
+    //---Only changes map if a different value is selected--//
     if(theEvent.getGroup().getValue() != gradientCheck){
         gradientCheck = theEvent.getGroup().getValue();
         map.setView(gradientCheck);
       }
     }
+    //---If Compare1 Dropdown is changed--//
     else if(theEvent.isGroup() && theEvent.group().name() == "Compare1") {
       compare.changeMap(0, (int)theEvent.getGroup().getValue() );
  
     }
+    //---If Compare2 Dropdown is changed--//
     else if(theEvent.isGroup() && theEvent.group().name() == "Compare2") {
       compare.changeMap(1, (int)theEvent.getGroup().getValue() );
  
     }
+    //---If years slider is changed--//
     else if(theEvent.isController()){
       if(theEvent.controller().name()=="years"){
         if(years!=0.0 && years != yearCheck){
@@ -173,9 +176,10 @@ void controlEvent(ControlEvent theEvent) {
           //change gradient if year changes
           if(gradientCheck!=0){
             map.setView(gradientCheck);
-          }          
+          }
+          
+          
         }
       }
-    }
+    }  
 }
-

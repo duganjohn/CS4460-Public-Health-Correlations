@@ -41,10 +41,6 @@ public class Draw{
   }
 
   
-  public void setWindowState(State state){
-
-  }
-  
  /* 
   * Only enters if within these parameters
   */

@@ -8,6 +8,7 @@ public class Sidebar {
   
   float widthRec = widthW*.26;
   Dropdown vars;
+  
   public Sidebar() {
      vars = new Dropdown("Variables", x + (widthRec-216)/2, y + 65, 216, 500);
     
@@ -18,10 +19,18 @@ public class Sidebar {
       vars.setIndex(0);
    }
    
+   /*
+   * Makes dropdown visible and invisible
+   * For Compare View Mode
+   * @param bool Set visibility true or false
+   */
    public void toggleDropdown(boolean bool){
      vars.setVisible(bool);
    }
 
+  /*
+   * Draws sidebar
+   */
   public void drawSidebar() {
     // Creates the panel
     color textColor = white;

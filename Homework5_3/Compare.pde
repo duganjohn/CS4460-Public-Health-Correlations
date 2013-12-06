@@ -101,7 +101,9 @@ public class Compare{
     
   }
 
-  
+  /*
+   *  Removes Compare View   
+   */
   void close(){
     compareViewOn = false;
     menu1.clear();
@@ -114,11 +116,17 @@ public class Compare{
 
   }
   
+   /*
+   *  Check mousemoved on compare view
+   */
   void mouseMoved(){
     map1.mouseMoved();
     map2.mouseMoved();
   }
   
+  /*
+   *  Draws compare view
+   */
   void draw(){
     fill(96);
     rect(0,top,widthW,heightH-top, 30);

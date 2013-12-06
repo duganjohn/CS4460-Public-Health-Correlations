@@ -41,16 +41,27 @@ public class State{
     createColor();
   }
   
+  /* 
+  * Gets Name
+  * @return  name of state
+  */
   public String getName(){
     return name;
   }
   
-  //Initial color.
+  /* 
+  * Creates initial random color
+  */
   public void createColor(){
     stateColor = color(random(100), random(80)+20, random(10)+90); //random(10)+90
   }
   
-  //Overriding of color. If gradient is turned on
+  /* 
+  * Changes color (if gradient is turned on)
+  * @param  int H hue
+  * @param  int S saturation
+  * @param  int B brightness
+  */
   public void setColor(int H, int S, int B){
 
       H += (int)(B*.2);
@@ -58,15 +69,29 @@ public class State{
     stateColor = color(H, S, B);
     brightness = B;
   }
-    
+  
+  /* 
+  * Changes if state is being highlighted
+  * @param tf boolean
+  */
   public void setHighlight(boolean tf){
     highlight = tf;
   }
   
+  /* 
+  * Changes if state is being brushed
+  * @param tf boolean
+  */
   public void setBrushing(boolean tf){
     brushing = tf;
   }
   
+  /* 
+  * Checks if state is hovered on
+  * @param mx mouseX
+  * @param my mouseY
+  * @return highlight boolean if state is being hovered on
+  */
   public boolean contains(int mx, int my){
     if (filterOn==0 && polygon.contains(mx,my)){
       highlight = true;
@@ -74,6 +99,10 @@ public class State{
     return highlight;
   }
   
+  /* 
+  * Draws state
+  * @param col color of state name abbreviation text
+  */
   public State draw(color col){
     State ret = null;
       if (brushing){
@@ -98,6 +127,10 @@ public class State{
     return ret;
   }
   
+  /* 
+  * Draws state name abbreviation text
+  * @param col color of state name abbreviation text
+  */
   public void drawName(color col){
      //-- Draw Names of State
      fill(col);
@@ -107,10 +140,18 @@ public class State{
     text(abb, centerX, centerY);
   }
   
+  /* 
+  * X-coordinate for Center of State
+  * @return centerX 
+  */
   public int getCenterX(){
      return centerX;
   }
   
+  /* 
+  * Y-coordinate for Center of State
+  * @return centerY 
+  */
   public int getCenterY(){
      return centerY;
   }

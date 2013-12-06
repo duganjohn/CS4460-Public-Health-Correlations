@@ -548,11 +548,19 @@ public class Map{
     return minMax;
   }
   
+  /*
+  * Get whether or not map uses Relative Data
+  * @return relative 1 if yes, 0 if no
+  */
   public int getRelative(){
     
     return relative;
   }
   
+  /*
+  * Set whether or not map uses Relative Data
+  * @param relative 1 if yes, 0 if no
+  */
   public void setRelative(int relative){
     //print(relative);
     this.relative=relative;
