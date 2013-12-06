@@ -39,7 +39,7 @@ void setup(){
   reader.firstRow();
   
   // --- Colors Setup ----
-  blue = color(65,86,100); 
+  blue = color(55,86,100); 
   green = color(24,100,100); 
   purple = color(77,80,100);
   orange = color(9,100,100);

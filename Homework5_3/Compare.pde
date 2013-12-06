@@ -68,13 +68,18 @@ public class Compare{
      Snapshot aSnapshot = snapshots.get(snapshotIndex);
      int year = aSnapshot.getYear()-1999;
      float gradient = aSnapshot.getGradientNumber();
+     int relative = aSnapshot.getRelative();
      if(mapIndex==0){
        map1.changeYear(year);
        map1.setView( gradient);
+       map1.setRelative(relative);
+       //print(map1.relative);
      }
      else{
        map2.changeYear(year);
        map2.setView( gradient);
+       map2.setRelative(relative);
+      // print(map2.relative);
      }
      
     

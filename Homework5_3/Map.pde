@@ -12,7 +12,7 @@ public class Map{
   int legendX, legendY;
   float size;
   float gradientActive;
-  int relative = 1;
+  int relative = 0;
   
   
   int average = 0;
@@ -40,8 +40,6 @@ public class Map{
 
     int scaleX = (int)(6*size);
     int scaleY = (int)(-7*size);
-    
-    relative = 1;
     
    int stateLength = 51;
     //Hawaii and Alaska are on a different scale
@@ -531,6 +529,17 @@ public class Map{
 
   
     return minMax;
+  }
+  
+  public int getRelative(){
+    
+    return relative;
+  }
+  
+  public void setRelative(int relative){
+    //print(relative);
+    this.relative=relative;
+    changeAllColors(gradientActive);
   }
   
 }

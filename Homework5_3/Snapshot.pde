@@ -9,14 +9,15 @@ public class Snapshot{
   int w = 200;
   int h = 120;
   float gradientNumber;
-  
+  int relative;
   //the snapshot is first created empty
   public Snapshot(Integer slot){
     this.slot = slot;
   }
   
   //sets all the details of the snapshot
-  public void setSnapshot(PImage image, int slot, int year, String gradientLabel) {
+  public void setSnapshot(PImage image, int slot, int year, String gradientLabel, int relative) {
+    this.relative = relative;
     this.image = image;
     this.slot = slot;
     this.year = year;
@@ -76,6 +77,10 @@ public class Snapshot{
   
   public String getGradientLabel(){
     return gradientLabel;
+  }
+  
+  public int getRelative(){
+    return relative;
   }
 
 
