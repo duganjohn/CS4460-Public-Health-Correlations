@@ -30,26 +30,35 @@ public class StateData{
     
     }
     
+ /* 
+  * Updates the data of each state
+  * @param population
+  * @param medianIncom
+  * @param healthExp
+  * @param noInsCoverage
+  * @param population
+  * @param insCoverage
+  * @param employmentBased
+  * @param directPurchase
+  * @param goverment
+  * @param medicaid
+  * @param medicare
+  * @param military
+  */
     public void updateData(int population, int medianIncome, int healthExp,
           float noInsCoverage, float insCoverage, float employmentBased,
           float directPurchase, float government, float medicaid, float medicare,
           float military){
             
-    this.healthExp = healthExp;
-    
+    this.healthExp = healthExp;  
     this.population = population;
     this.medianIncome = (int)Math.round(medianIncome);      
     this.healthExp = healthExp;
-    
-    
-   
     this.noInsCoverage = (int)Math.round(noInsCoverage);
 
     float ratio = insCoverage / (insCoverage + noInsCoverage);
-
     this.insCoverage = Math.round((ratio * 100)*100.00)/100.00;
-    this.noInsCoverage = Math.round((100 - this.insCoverage)*100.00)/100.00;
-    
+    this.noInsCoverage = Math.round((100 - this.insCoverage)*100.00)/100.00;    
     this.employmentBased = (int)Math.round(employmentBased*1000);
     this.directPurchase = (int)Math.round(directPurchase*1000);
     this.government = (int)Math.round(government*1000);
@@ -60,6 +69,9 @@ public class StateData{
     updateArray();
   }
  
+ /* 
+  * Updates the array of information for states
+  */
  public void updateArray(){
    
      String healthProcessed = "$ "+this.healthExp;
@@ -76,6 +88,10 @@ public class StateData{
      
  }
  
+ /* 
+  * Gets the formatting
+  *@return array of formatting
+  */
   public float[] getNumFormat(){
    return numFormat;
  }

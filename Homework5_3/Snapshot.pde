@@ -1,3 +1,6 @@
+/* 
+ * Class to grab screenshots of select areas
+ */
 public class Snapshot{
   PImage image;
   int slot;
@@ -62,18 +65,34 @@ public class Snapshot{
     draw();
   }
   
+ /* 
+  * Gets the slot index of the bottom
+  *@return slot
+  */
   public int getSlot() {
     return slot;
   }
   
+ /* 
+  * Gets the year of the snapshot
+  @return year
+  */
   public int getYear() {
     return year;
   }
   
+ /* 
+  * Gets the gradient of the snapshot
+  *@return gradient
+  */
   public float getGradientNumber() {
     return gradientNumber;
   }
   
+ /* 
+  * Gets the gradienth label
+  * Returns  label
+  */
   public String getGradientLabel(){
     return gradientLabel;
   }

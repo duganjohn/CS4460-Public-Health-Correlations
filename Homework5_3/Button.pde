@@ -1,5 +1,8 @@
 import java.awt.Rectangle; 
 
+/*
+ * Button Class to create an easy to edit button
+ */
 public class Button extends java.awt.Rectangle {
   
     int w;
@@ -31,6 +34,11 @@ public class Button extends java.awt.Rectangle {
       
     }
     
+    /*
+     *  Sets the color of the button
+     *
+     *@param color
+     */
     public void setColor(color col){
      this.col = col;
     }   
@@ -59,6 +67,11 @@ public class Button extends java.awt.Rectangle {
       }
     }
     
+    /*
+     *  Sets the function of the button to be called upon pressed
+     *
+     *@return whether or not it is pressed
+     */
     public boolean pressed(){
       boolean ans= false;
       if (mouseX >= x && mouseX < x+w) {
@@ -68,11 +81,21 @@ public class Button extends java.awt.Rectangle {
       } 
       return ans;
     }
-    
+
+    /*
+     *  Gets the index of the button
+     *
+     *@return index
+     */    
     public int getIndex(){
       return index;
     }
-    
+
+    /*
+     *  Sets the index of the button
+     *
+     *@param index
+     */    
     public void setIndex(int newIndex){
       index = newIndex;
     }

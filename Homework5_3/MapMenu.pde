@@ -59,11 +59,17 @@ public class MapMenu{
     }
   }
   
+ /* 
+  * Toggles whether the slider is visible
+  *@param bool whether or ont
+  */
   public void toggleSlider(boolean bool){
      cp5.getController("years").setVisible(bool);
   }
   
-  
+ /* 
+  * Changes the function of what happens upon mouse press
+  */
   public void mousePressed(){
      int deleteIndex = 0;
      boolean deleted = false;
@@ -139,6 +145,9 @@ public class MapMenu{
      }
   }
   
+ /* 
+  * Overwrites previous method
+  */
   public void drawYearSlider(){
 
   } 

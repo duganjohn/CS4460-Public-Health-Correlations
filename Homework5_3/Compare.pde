@@ -1,3 +1,6 @@
+/*
+ *  Creates the Compare vis of the project
+ */
 public class Compare{
   
   Map map1;
@@ -23,6 +26,9 @@ public class Compare{
     
   }
   
+  /*
+   *  Sets the function on mouse press
+   */
   void mousePressed(){
     if(close!=null && close.pressed()){
       close();
@@ -33,6 +39,11 @@ public class Compare{
     
   }
   
+  /*
+   * Called upon activation of the compare vis
+   *
+   *@param snapshots that have been taken in map class
+   */
   void activate(ArrayList<Snapshot> snapshots){
     this.snapshots = snapshots;
     menu1.setVisible(true);
@@ -63,6 +74,12 @@ public class Compare{
     map2 = new Map( size, relX + 600,  relY,  relXAlaska + 600,  relYAlaska,  relXHawaii,  relYHawaii+ 300, x+dropdownW/4+560, y+30);
   }
   
+  /*
+   *  Sets the map to a screenshot
+   *
+   *@param mapIndex determines left or right map
+   *@param snapshotIndex determines which snapshot to set the map to
+   */
   void changeMap(int mapIndex, int snapshotIndex){
      Snapshot aSnapshot = snapshots.get(snapshotIndex);
      int year = aSnapshot.getYear()-1999;

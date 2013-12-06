@@ -28,7 +28,9 @@ color[] typeColor;
 color blue, green, purple, orange, magenta, red, lightGray, black, white, darkGray, lighterGray, gray;
 
 
-
+/*
+ * Creates the initial setup for the vis
+ */
 void setup(){
   draw = new Draw();
 
@@ -132,8 +134,10 @@ void mousePressed(){
 void redraw(){
 }
 
+/*
+ * Creates the initial draw
+ */
 void draw(){
-  //this wastes a lot of resources
   draw.draw();
 }
 
@@ -144,10 +148,7 @@ void controlEvent(ControlEvent theEvent) {
 
   // check if the Event was triggered from a ControlGroup
   if(theEvent.isGroup() && theEvent.group().name() == "Variables") {
-    
-    // if Dropdown List is Clicked
-   // if (theEvent.group().name() == "Variables") {
-      
+       
       //---Only changes map if a different value is selected--//
     if(theEvent.getGroup().getValue() != gradientCheck){
         gradientCheck = theEvent.getGroup().getValue();
@@ -172,18 +173,9 @@ void controlEvent(ControlEvent theEvent) {
           //change gradient if year changes
           if(gradientCheck!=0){
             map.setView(gradientCheck);
-          }
-          
-          
+          }          
         }
       }
     }
-
-    
-    // check if the Event was triggered from a ControlGroup
-    
-   // println("event from group : "+theEvent.getGroup().getValue()+" from "+theEvent.getGroup());
-  
-  
 }
 
