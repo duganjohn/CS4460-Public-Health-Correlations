@@ -68,7 +68,6 @@ public class MapMenu{
      int deleteIndex = 0;
      boolean deleted = false;
      PImage image;
-     
      if (compareButton.pressed()) {
        compare.activate(snapshots);
      }
@@ -78,30 +77,32 @@ public class MapMenu{
        relativeButton.setColor(colArray[relative]);
        if(gradientCheck!=0)
        map.changeAllColors(gradientCheck);
-       
      }
      
      //adds the screenshot if the save button is pressed
      if (saveButton.pressed()) {
-       if (map.getView() == null) {
-         map.setView(0);
-       }
        if (availableSlots.size() < 1) {
          javax.swing.JOptionPane.showMessageDialog(null, "You may only save 6 views, please delete one or more views.");
        } else {
-         fill(background);
-         stroke(background);
-         rect(map.X, map.Y, map.wid, map.hig);
+       fill(background);
+       stroke(background);
+       //covers up the legend so it's not in the screenshot
+       rect(map.X, map.Y-20, map.wid, map.hig);
+       //get function grabs a screenshot of the map
        image = get(0,100,800,400);
+       //sort the available slots so we insert new images into the leftmost available slot
        Collections.sort(availableSlots);
        int slot = availableSlots.get(0);
+       //add the new snapshot
        snapshots.get(slot).setSnapshot(image, slot, (int)Math.round(cp5.getController("years").getValue()), map.getView()); 
+       //add the proper delete button
        if (deleteButtons.size()<6){
          Button deleteButton = new Button("X",slot*200+190, heightH-130, 10,10, slot);
          deleteButtons.add(slot,deleteButton);
        } else {
          deleteButtons.get(slot).show();
        }
+       //removes the slot from the available slots
        availableSlots.remove(0);
        }
      }
@@ -127,10 +128,13 @@ public class MapMenu{
      for (Snapshot aSnapshot : snapshots) {
        if (aSnapshot.pressed()) {
          //update image       
-         gradientCheck = aSnapshot.getGradientNumber();
-         map.setView(aSnapshot.getGradientNumber());
-         map.changeYear(aSnapshot.getYear()-1999);
+         if (aSnapshot.getYear() > 0){
+           gradientCheck = aSnapshot.getGradientNumber();
+           map.changeYear(aSnapshot.getYear()-1999);
+           map.setView(aSnapshot.getGradientNumber());
+         //update the slider
          cp5.getController("years").setValue(aSnapshot.getYear());
+         }
        }
      }
   }

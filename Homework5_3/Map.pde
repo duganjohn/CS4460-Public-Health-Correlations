@@ -197,7 +197,6 @@ public class Map{
          //give a hue
          //change color hue for all states
          changeAllColors(gradient);
-          // st.setColor(0,0,0); //setColor
         }
    
   }
@@ -244,7 +243,6 @@ public class Map{
            }
        }
      }
-     //println(min + " " + max);
    
      int i = 0;
      for(State st: stateList){

@@ -39,7 +39,16 @@ public class Button extends java.awt.Rectangle {
       if (isHidden) {
         fill(white);
         stroke(white);
-      } else {
+      } else if (pressed()) {
+        strokeWeight(1);
+        stroke(black);
+        fill(col);
+        rect(x,y,w,h);
+        fill(black); 
+        textAlign(CENTER,CENTER);
+        textFont(font24,18);
+        text(text,x+w/2,y+h/2);
+      }else {
       fill(col); 
       noStroke();
       rect(x,y,w,h);
