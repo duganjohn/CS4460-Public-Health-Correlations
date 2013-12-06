@@ -14,7 +14,7 @@ public static Draw draw;
 
 public static int filterOn;
 public float years;
-public int relative;
+
 
 private int widthW;
 private int heightH;
@@ -28,7 +28,9 @@ color[] typeColor;
 color blue, green, purple, orange, magenta, red, lightGray, black, white, darkGray, lighterGray, gray;
 
 
-
+/*
+ * Creates the initial setup for the vis
+ */
 void setup(){
   draw = new Draw();
 
@@ -39,7 +41,7 @@ void setup(){
   reader.firstRow();
   
   // --- Colors Setup ----
-  blue = color(65,86,100); 
+  blue = color(55,86,100); 
   green = color(24,100,100); 
   purple = color(77,80,100);
   orange = color(9,100,100);
@@ -127,41 +129,43 @@ void mousePressed(){
   
 }
 
-
-// --- Exists so Draw isn't called every time ----
-void redraw(){
-}
-
+/*
+ * Creates the initial draw
+ */
 void draw(){
-  //this wastes a lot of resources
   draw.draw();
 }
 
 float gradientCheck = 0.0;
 float yearCheck = years;
 
+/**
+ * Works with ControlP5 to receive events when user triggers
+ * sliders or dropdowns
+ */
 void controlEvent(ControlEvent theEvent) {
 
   // check if the Event was triggered from a ControlGroup
   if(theEvent.isGroup() && theEvent.group().name() == "Variables") {
     
     // if Dropdown List is Clicked
-   // if (theEvent.group().name() == "Variables") {
-      
-      //---Only changes map if a different value is selected--//
+    //---Only changes map if a different value is selected--//
     if(theEvent.getGroup().getValue() != gradientCheck){
         gradientCheck = theEvent.getGroup().getValue();
         map.setView(gradientCheck);
       }
     }
+    //---If Compare1 Dropdown is changed--//
     else if(theEvent.isGroup() && theEvent.group().name() == "Compare1") {
       compare.changeMap(0, (int)theEvent.getGroup().getValue() );
  
     }
+    //---If Compare2 Dropdown is changed--//
     else if(theEvent.isGroup() && theEvent.group().name() == "Compare2") {
       compare.changeMap(1, (int)theEvent.getGroup().getValue() );
  
     }
+    //---If years slider is changed--//
     else if(theEvent.isController()){
       if(theEvent.controller().name()=="years"){
         if(years!=0.0 && years != yearCheck){
@@ -177,13 +181,5 @@ void controlEvent(ControlEvent theEvent) {
           
         }
       }
-    }
-
-    
-    // check if the Event was triggered from a ControlGroup
-    
-   // println("event from group : "+theEvent.getGroup().getValue()+" from "+theEvent.getGroup());
-  
-  
+    }  
 }
-

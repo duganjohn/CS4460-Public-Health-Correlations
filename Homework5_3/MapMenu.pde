@@ -59,11 +59,17 @@ public class MapMenu{
     }
   }
   
+ /* 
+  * Toggles whether the slider is visible
+  *@param bool whether or ont
+  */
   public void toggleSlider(boolean bool){
      cp5.getController("years").setVisible(bool);
   }
   
-  
+ /* 
+  * Changes the function of what happens upon mouse press
+  */
   public void mousePressed(){
      int deleteIndex = 0;
      boolean deleted = false;
@@ -73,8 +79,8 @@ public class MapMenu{
      }
      else if (relativeButton.pressed()) {
        color[] colArray = {gray, darkGray};
-       relative^=1;
-       relativeButton.setColor(colArray[relative]);
+       map.toggleRelative();
+       relativeButton.setColor(colArray[map.relative]);
        if(gradientCheck!=0)
        map.changeAllColors(gradientCheck);
      }
@@ -93,9 +99,10 @@ public class MapMenu{
        //sort the available slots so we insert new images into the leftmost available slot
        Collections.sort(availableSlots);
        int slot = availableSlots.get(0);
-       //add the new snapshot
-       snapshots.get(slot).setSnapshot(image, slot, (int)Math.round(cp5.getController("years").getValue()), map.getView()); 
-       //add the proper delete button
+
+       snapshots.get(slot).setSnapshot(image, slot, (int)Math.round(cp5.getController("years").getValue()), map.getView(), map.getRelative()); 
+
+      
        if (deleteButtons.size()<6){
          Button deleteButton = new Button("X",slot*200+190, heightH-130, 10,10, slot);
          deleteButtons.add(slot,deleteButton);
@@ -139,6 +146,9 @@ public class MapMenu{
      }
   }
   
+ /* 
+  * Overwrites previous method
+  */
   public void drawYearSlider(){
 
   } 

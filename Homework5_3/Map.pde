@@ -12,7 +12,7 @@ public class Map{
   int legendX, legendY;
   float size;
   float gradientActive;
-  
+  int relative = 0;
   
   
   int average = 0;
@@ -21,6 +21,10 @@ public class Map{
   // not exactly x and y
   
   XML xml;
+  
+  public void toggleRelative(){
+    relative^=1;
+  }
   
  public Map(){ 
     this(2, 1550, 800, 700, 800, 2400, 700, 620, 400);
@@ -36,8 +40,6 @@ public class Map{
 
     int scaleX = (int)(6*size);
     int scaleY = (int)(-7*size);
-    
-    relative = 1;
     
    int stateLength = 51;
     //Hawaii and Alaska are on a different scale
@@ -147,6 +149,10 @@ public class Map{
      
   }
   
+ /* 
+  * Changes the information on the screen by year
+  *@param yearIndex year to change to
+  */
   public void changeYear(int yearIndex){
     for(int i = 0; i< stateList.size(); i++){
       stateList.get(i).data = null;
@@ -169,6 +175,10 @@ public class Map{
     }
   }
 
+/* 
+ * Gets the current view
+ *@return the view
+ */
  public String getView(){
    return view;
  }
@@ -201,6 +211,10 @@ public class Map{
    
   }
   
+ /* 
+  * Alters the colors of the states
+  *@param gradent the gradient of the new color 
+  */
   void changeAllColors(float gradient){   
    
      view = typeName[(int)gradient];
@@ -473,7 +487,10 @@ public class Map{
     }
  }
   
-  
+ /* 
+  * Gets the list of the states
+  *@return state list
+  */
   public ArrayList<State> getStateList(){
     return stateList;
   }
@@ -488,6 +505,10 @@ public class Map{
    //An array of fixed values null, null, minPop, maxPop, minHealth, maxHealth, minUninsured, maxUninsured, minInsured...
   int[] minMaxFixed = {0,0,479602 , 38041430, 2794, 6803, 4, 26, 74, 96, 36641, 77506};
 
+ /* 
+  * Returns an array of the mins and maxs of current type and brightness
+  *@return array
+  */
   public double[] minMax() {
     double[] minMax = new double[4];
     
@@ -525,6 +546,25 @@ public class Map{
 
   
     return minMax;
+  }
+  
+  /*
+  * Get whether or not map uses Relative Data
+  * @return relative 1 if yes, 0 if no
+  */
+  public int getRelative(){
+    
+    return relative;
+  }
+  
+  /*
+  * Set whether or not map uses Relative Data
+  * @param relative 1 if yes, 0 if no
+  */
+  public void setRelative(int relative){
+    //print(relative);
+    this.relative=relative;
+    changeAllColors(gradientActive);
   }
   
 }

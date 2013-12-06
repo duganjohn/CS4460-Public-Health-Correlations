@@ -1,3 +1,7 @@
+
+/* 
+  * Continuosly redraws the the screen
+  */
 public class Draw{
   
   public Draw(){
@@ -35,21 +39,9 @@ public class Draw{
     }
      
   }
-  
-  /* 
-  * Redraws Everything when filter changes
 
-  public void filterChange(){
-    draw.draw();
-  }
-  */
   
-  public void setWindowState(State state){
-    //map.brush(state);
-    //stateWindow.setState(state);
-  }
-  
-     /* 
+ /* 
   * Only enters if within these parameters
   */
   public boolean within(int x1, int y1, int x2, int y2){

@@ -1,5 +1,8 @@
 import java.awt.Rectangle; 
 
+/*
+ * Button Class to create an easy to edit button
+ */
 public class Button extends java.awt.Rectangle {
   
     int w;
@@ -9,12 +12,31 @@ public class Button extends java.awt.Rectangle {
     boolean isHidden = false;
     color col;
     
-    /*overload*/
+    /**
+     * An overload constructor that makes buttons with colored backgrounds
+     *
+     * @param  text  what text of button will say
+     * @param  x  x coordinate on canvas
+     * @param  y  y coordinate on canvas
+     * @param  w  button width
+     * @param  h  button height
+     * @param  col  button background color
+     * @param  nothing  extra parameter so program knows to call this constructor (not used)
+     */
     public Button(String text, int x, int y, int w, int h, color col, int nothing) {
       this (text,  x,  y,  w,  h);
       this.col = col;
     }
     
+    /**
+     * Default constructor that makes buttons
+     *
+     * @param  text  what text of button will say
+     * @param  x  x coordinate on canvas
+     * @param  y  y coordinate on canvas
+     * @param  w  button width
+     * @param  h  button height
+     */
     public Button(String text, int x,int y, int w, int h) {
       //call the java.awt.Polygon constructor
       super(x, y, w,h);
@@ -24,13 +46,27 @@ public class Button extends java.awt.Rectangle {
       this.col = gray;
     }
     
-    //used for delete buttons on the map snapshots
+   /**
+     * Used for Delete Buttons on Snapshot
+     *
+     * @param  text  what text of button will say
+     * @param  x  x coordinate on canvas
+     * @param  y  y coordinate on canvas
+     * @param  w  button width
+     * @param  h  button height
+     * @param  index index within snapshot arraylist
+     */
     public Button(String text, int x, int y, int w, int h, int index) {
       this (text,  x,  y,  w,  h);
       this.index = index;
       
     }
     
+    /*
+     *  Sets the color of the button
+     *
+     *@param color
+     */
     public void setColor(color col){
      this.col = col;
     }   
@@ -59,6 +95,11 @@ public class Button extends java.awt.Rectangle {
       }
     }
     
+    /*
+     *  Sets the function of the button to be called upon pressed
+     *
+     *@return whether or not it is pressed
+     */
     public boolean pressed(){
       boolean ans= false;
       if (mouseX >= x && mouseX < x+w) {
@@ -68,21 +109,35 @@ public class Button extends java.awt.Rectangle {
       } 
       return ans;
     }
-    
+
+    /*
+     *  Gets the index of the button
+     *
+     *@return index
+     */    
     public int getIndex(){
       return index;
     }
-    
+
+    /*
+     *  Sets the index of the button
+     *
+     *@param index
+     */    
     public void setIndex(int newIndex){
       index = newIndex;
     }
     
-    // used for the delete buttons
+    /**
+     * Changes visibility (hide) for Snapshot Delete Buttons
+     */
     public void hide(){
       isHidden = true;
     }
     
-    // used for the delete buttons    
+   /**
+     * Changes visibility (show) for Snapshot Delete Buttons
+     */   
     public void show(){
       isHidden = false;
     }
